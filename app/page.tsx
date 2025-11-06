@@ -30,6 +30,33 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Quick-action pill navigation placed overlapping hero bottom */}
+      <section className="bg-transparent">
+        <div className="max-w-6xl mx-auto px-6 -mt-10">
+          <div className="flex flex-wrap items-center justify-center gap-6">
+            <a href="/aalayam" className="min-w-[220px] max-w-sm flex flex-col rounded-full bg-orange-50 border border-orange-100 p-4 shadow-sm">
+              <span className="text-orange-600 font-semibold">Visit Temple</span>
+              <span className="text-sm text-zinc-600">Plan your visit to Bhuvaneshwari Peetham</span>
+            </a>
+
+            <a href="/guru-parampara" className="min-w-[220px] max-w-sm flex flex-col rounded-full bg-orange-50 border border-orange-100 p-4 shadow-sm">
+              <span className="text-orange-600 font-semibold">Our Lineage</span>
+              <span className="text-sm text-zinc-600">Learn about our spiritual guides</span>
+            </a>
+
+            <a href="/aashramam" className="min-w-[220px] max-w-sm flex flex-col rounded-full bg-orange-50 border border-orange-100 p-4 shadow-sm">
+              <span className="text-orange-600 font-semibold">Join Activities</span>
+              <span className="text-sm text-zinc-600">Participate in spiritual programs</span>
+            </a>
+
+            <a href="/donate" className="min-w-[220px] max-w-sm flex flex-col rounded-full bg-orange-700 text-white p-4 shadow-md">
+              <span className="text-white font-semibold">Support Us</span>
+              <span className="text-sm text-orange-100">Contribute to our mission</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
       <main className="max-w-6xl mx-auto px-6 py-6">
         {/* Welcome / Telugu heading Section */}
         <section className="mb-8 text-center bg-[url('/images/bg-pattern.png')] bg-top bg-no-repeat py-12">
