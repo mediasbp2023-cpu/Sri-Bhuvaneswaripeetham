@@ -88,6 +88,50 @@ export function Navbar({ className = '' }: NavbarProps) {
             ))}
           </nav>
         )}
+
+        {/* Quick action navigation (prominent) */}
+        <div className="border-t border-gray-100">
+          <div className="mx-auto max-w-4xl px-6 py-3">
+            {/* Desktop quick nav */}
+            <div className="hidden md:flex items-center justify-center gap-4">
+              <Link href="/aalayam" className="px-4 py-2 rounded-full bg-orange-50 text-orange-700 border border-orange-100 hover:bg-orange-100 transition">
+                <div className="text-sm font-medium">Visit Temple</div>
+                <div className="text-xs text-zinc-600">Plan your visit to Bhuvaneshwari Peetham</div>
+              </Link>
+
+              <Link href="/guru-parampara" className="px-4 py-2 rounded-full bg-orange-50 text-orange-700 border border-orange-100 hover:bg-orange-100 transition">
+                <div className="text-sm font-medium">Our Lineage</div>
+                <div className="text-xs text-zinc-600">Learn about our spiritual guides</div>
+              </Link>
+
+              <Link href="/aashramam" className="px-4 py-2 rounded-full bg-orange-50 text-orange-700 border border-orange-100 hover:bg-orange-100 transition">
+                <div className="text-sm font-medium">Join Activities</div>
+                <div className="text-xs text-zinc-600">Participate in spiritual programs</div>
+              </Link>
+
+              <Link href="/donate" className="px-4 py-2 rounded-full bg-orange-600 text-white hover:bg-orange-700 transition">
+                <div className="text-sm font-medium">Support Us</div>
+                <div className="text-xs">Contribute to our mission</div>
+              </Link>
+            </div>
+
+            {/* Mobile quick nav */}
+            <div className="md:hidden grid grid-cols-2 gap-2 mt-3">
+              <Link href="/aalayam" className="block p-3 rounded-lg bg-orange-50 text-orange-700">
+                <div className="text-sm font-medium">Visit Temple</div>
+              </Link>
+              <Link href="/guru-parampara" className="block p-3 rounded-lg bg-orange-50 text-orange-700">
+                <div className="text-sm font-medium">Our Lineage</div>
+              </Link>
+              <Link href="/aashramam" className="block p-3 rounded-lg bg-orange-50 text-orange-700">
+                <div className="text-sm font-medium">Join Activities</div>
+              </Link>
+              <Link href="/donate" className="block p-3 rounded-lg bg-orange-600 text-white">
+                <div className="text-sm font-medium">Support Us</div>
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </header>
   );
