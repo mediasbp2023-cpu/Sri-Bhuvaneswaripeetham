@@ -1,24 +1,41 @@
 import { HeroBanner, GalleryGrid } from "@/components";
+import Image from "next/image";
 import { images } from "./constants/images";
 
 export default function Home() {
   return (
     <div>
-      <HeroBanner
-        title="Bhuvaneshwari Peetham"
-        description="A sanctuary of peace, devotion, and spiritual awakening"
-        imageSrc={images.hero.home}
-        imageAlt="Temple front view at sunset"
-        height="large"
-      />
-      
-      <main className="max-w-6xl mx-auto px-6 py-12">
-        {/* Welcome Section */}
-        <section className="mb-16 text-center">
-          <h2 className="text-3xl font-bold mb-4">Welcome to Our Sacred Space</h2>
+      {/* Full-width orange hero with central poster card */}
+      <section className="w-full bg-orange-400">
+        <div className="max-w-6xl mx-auto relative">
+          {/* Side decorative placeholders (can be replaced with lotus SVGs) */}
+          <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-48 bg-[url('/images/placeholder-left.png')] bg-contain bg-center bg-no-repeat" />
+          <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-48 bg-[url('/images/placeholder-right.png')] bg-contain bg-center bg-no-repeat" />
+
+          <div className="px-6 py-10 flex justify-center">
+            <div className="w-full max-w-4xl">
+              <div className="bg-white rounded-xl p-4 shadow-lg">
+                <div className="relative aspect-[3/2]">
+                  <Image
+                    src={images.gallery.temple[0].src}
+                    alt={images.gallery.temple[0].alt}
+                    fill
+                    className="object-contain rounded-lg"
+                    priority
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <main className="max-w-6xl mx-auto px-6 py-6">
+        {/* Welcome / Telugu heading Section */}
+        <section className="mb-8 text-center bg-[url('/images/bg-pattern.png')] bg-top bg-no-repeat py-12">
+          <h2 className="text-4xl font-extrabold mb-4 text-orange-600">శ్రీ భువనేశ్వరి ఆలయ పూజలు</h2>
           <p className="text-lg text-zinc-600 max-w-3xl mx-auto">
-            Discover the divine presence and spiritual heritage at Bhuvaneshwari Peetham, 
-            where ancient wisdom meets contemporary devotion.
+            Discover the divine presence and spiritual heritage at Bhuvaneshwari Peetham.
           </p>
         </section>
 
