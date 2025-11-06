@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bhuvaneshwari Peetham — Visual Sitemap</title>
+  <style>body{font-family:system-ui,Segoe UI,Roboto,Arial;background:#fff;margin:0;padding:24px}#diagram{max-width:1200px;margin:auto}</style>
+  <!-- Mermaid CDN: the browser will load mermaid from the CDN when this page is served over HTTP -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad:true, theme: 'default' });</script>
+</head>
+<body>
+  <h1>Bhuvaneshwari Peetham — Visual Sitemap</h1>
+  <p>The editable source is in <code>/docs/sitemap.mmd</code>. This page renders the Mermaid diagram in-browser.</p>
+
+  <div id="diagram">
+    <div class="mermaid">
+flowchart TD
+  subgraph HEADER["Header (visible on every page)"]
+    H["Logo / Navigation"]
+  end
+
+  H --> Home["Home"]
+  H --> Aalayam["Aalayam"]
+  H --> Aashramam["Aashramam"]
+  H --> GuruParampara["Guru Parampara"]
+  H --> Mahapadayatra["Mahapadayatra"]
+  H --> Donate["Donate"]
+  H --> Feedback["Feedback"]
+  H --> Contact["Contact"]
+
+  Home --> Hero["Hero Section"]
+  Home --> Intro["Brief Introduction"]
+  Home --> QuickCards["Quick Access Cards"]
+  QuickCards --> Aalayam
+  QuickCards --> GuruParampara
+  QuickCards --> Donate
+  QuickCards --> Mahapadayatra
+  Home --> Events["Upcoming Events / Announcements"]
+
+  Aalayam --> About["About Section: History & Significance"]
+  Aalayam --> Timeline["Temple History Timeline"]
+  Aalayam --> GalleryA["Gallery (Rituals, Festivals, Premises)"]
+  Aalayam --> SpecialEvents["Special Events / Annual Poojas"]
+
+  Aashramam --> AshramHistory["History (Since 1952)"]
+  Aashramam --> Anugraham["Anugraham (Teachings & Blessings)"]
+  Aashramam --> Activities["Activities: Seva / Education / Welfare"]
+
+  GuruParampara --> GPIntro["Introduction to Guru Lineage"]
+  GuruParampara --> Cards["Hierarchy Display (cards)"]
+  Cards --> SwamijiCard["Swamiji (photo, name, period, read more)"]
+  SwamijiCard --> SwamijiPage["Swamiji individual page: bio, gallery, contributions"]
+  GuruParampara --> Current["Current Swamiji"]
+  Current --> Travel["Travel history since 2007 (Map & Timeline)"]
+  Current --> Residence["Currently residing at..."]
+
+  Mahapadayatra --> YIntro["Introduction & Significance"]
+  Mahapadayatra --> Route["Journey Route"]
+  Mahapadayatra --> Participation["Devotee Participation"]
+  Mahapadayatra --> Experiences["Experiences During the Yatra"]
+  Mahapadayatra --> Renovation["Renovation Work & Projects"]
+  Mahapadayatra --> GalleryY["Gallery & Videos"]
+  Renovation --> Donate
+
+  Donate --> DOverview["Message from Swamiji / Importance of Seva"]
+  Donate --> Options["Donation Options & Categories"]
+  Donate --> DForm["Donation Form (Name, Email, Amount, Category)"]
+  Donate --> QR["UPI / QR Code Integration / Payment"]
+  Donate --> DThanks["Thank you / Confirmation"]
+
+  Feedback --> Testimonials["Villagers’ Testimonials (video/text)"]
+  Feedback --> VisitorForm["Visitor Feedback Form"]
+
+  Contact --> Address["Temple Address, Map & Timings"]
+  Contact --> ContactForm["Contact Form"]
+  Contact --> Social["Social links / Newsletter Signup"]
+
+  subgraph FOOTER["Footer (common to all pages)"]
+    F["Quick Links / Contact / Copyright"]
+  end
+  FOOTER --> Home
+  FOOTER --> Contact
+
+    </div>
+  </div>
+
+  <p>If you want an SVG export, run the mermaid CLI locally (example below) or let me render an SVG and add it to <code>/public/images/</code>.</p>
+  <pre>
+    <code>npx @mermaid-js/mermaid-cli -i docs/sitemap.mmd -o public/images/sitemap.svg</code>
+  </pre>
+</body>
+</html>
