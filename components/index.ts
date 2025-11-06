@@ -9,3 +9,6 @@ export type { HeroBannerProps } from './HeroBanner';
 
 export { GalleryGrid } from './GalleryGrid';
 export type { GalleryGridProps, GalleryImage } from './GalleryGrid';
+
+export { Timeline } from './Timeline';
+export type { TimelineProps, TimelineEvent, TimelineStat } from './Timeline';
