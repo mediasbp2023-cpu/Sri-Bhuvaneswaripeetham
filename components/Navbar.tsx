@@ -22,55 +22,66 @@ export function Navbar({ className = '' }: NavbarProps) {
   ];
 
   return (
-    <header className={`bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50 ${className}`}>
-      <div className="mx-auto max-w-4xl px-6 py-4">
-        <div className="flex items-center justify-between">
-          <Link href="/" className="font-semibold text-lg">
-            Bhuvaneshwari Peetham
-          </Link>
+    <header className={`bg-white sticky top-0 z-50 shadow-sm ${className}`}>
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="flex items-center justify-between h-16">
+          {/* Left: Logo */}
+          <div className="flex items-center gap-4">
+            <Link href="/" className="flex items-center gap-3">
+              {/* Placeholder logo - replace with SVG at public/images/logo.svg */}
+              <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold">BP</div>
+              <span className="hidden sm:inline-block font-semibold">Bhuvaneshwari Peetham</span>
+            </Link>
+          </div>
 
-          {/* Mobile menu button */}
-          <button
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              {isMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
-          </button>
-
-          {/* Desktop navigation */}
-          <nav className="hidden md:flex space-x-4 text-sm">
-            {links.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className="hover:text-orange-600 transition-colors"
-              >
-                {label}
-              </Link>
-            ))}
+          {/* Center: Navigation */}
+          <nav className="hidden lg:flex gap-8 items-center">
+            <Link href="/aalayam" className="text-zinc-800 hover:text-orange-600 transition">Aalayam</Link>
+            <Link href="/aashramam" className="text-zinc-800 hover:text-orange-600 transition">Ashramam</Link>
+            <Link href="/anugraham" className="text-zinc-800 hover:text-orange-600 transition">Anugraham</Link>
+            <Link href="/guru-parampara" className="text-zinc-800 hover:text-orange-600 transition">Guru Parampara</Link>
+            <div className="relative group">
+              <Link href="/mahapadayatra" className="text-zinc-800 hover:text-orange-600 transition">Mahapadayatra</Link>
+              {/* future dropdown */}
+            </div>
           </nav>
+
+          {/* Right: Donate CTA and mobile menu */}
+          <div className="flex items-center gap-4">
+            <Link href="/donate" className="hidden md:inline-flex items-center gap-2 px-5 py-2 rounded-full bg-orange-600 text-white hover:bg-orange-700 transition">
+              Donate
+            </Link>
+
+            {/* Mobile menu button */}
+            <button
+              className="lg:hidden p-2 rounded-md hover:bg-gray-100"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                {isMenuOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Mobile navigation */}

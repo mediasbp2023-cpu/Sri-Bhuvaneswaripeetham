@@ -34,17 +34,18 @@ export function HeroBanner({
         className="object-cover"
         priority
       />
-      
+
       {overlay && (
-        <div className="absolute inset-0 bg-black/40" />
+        // orange-tinted overlay to match the provided design
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-500/70 via-orange-400/50 to-orange-300/40" />
       )}
 
       <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 relative z-10">
+        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 relative z-10 drop-shadow-lg">
           {title}
         </h1>
         {description && (
-          <p className="text-lg md:text-xl text-white/90 max-w-2xl relative z-10">
+          <p className="text-lg md:text-xl text-white/95 max-w-2xl relative z-10">
             {description}
           </p>
         )}
