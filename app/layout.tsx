@@ -27,7 +27,31 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200">
+          <div className="mx-auto max-w-4xl px-6 py-4 flex items-center justify-between">
+            <a href="/" className="font-semibold text-lg">Bhuvaneshwari Peetham</a>
+            <nav className="space-x-4 text-sm">
+              <a className="hover:underline" href="/">Home</a>
+              <a className="hover:underline" href="/aalayam">Aalayam</a>
+              <a className="hover:underline" href="/aashramam">Aashramam</a>
+              <a className="hover:underline" href="/guru-parampara">Guru Parampara</a>
+              <a className="hover:underline" href="/mahapadayatra">Mahapadayatra</a>
+              <a className="hover:underline" href="/donate">Donate</a>
+              <a className="hover:underline" href="/feedback">Feedback</a>
+              <a className="hover:underline" href="/contact">Contact</a>
+            </nav>
+          </div>
+        </header>
+
+        <main className="min-h-[70vh]">
+          {children}
+        </main>
+
+        <footer className="bg-zinc-50 border-t border-gray-200">
+          <div className="mx-auto max-w-4xl px-6 py-6 text-sm text-zinc-600">
+            © {new Date().getFullYear()} Bhuvaneshwari Peetham. All rights reserved.
+          </div>
+        </footer>
       </body>
     </html>
   );
