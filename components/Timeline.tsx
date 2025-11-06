@@ -1,3 +1,5 @@
+'use client';
+
 export interface TimelineStat {
   label: string;
   value: string;
