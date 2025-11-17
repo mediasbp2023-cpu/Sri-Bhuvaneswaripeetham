@@ -8,6 +8,8 @@ export { HeroBanner } from './HeroBanner';
 export type { HeroBannerProps } from './HeroBanner';
 
 export { GalleryGrid } from './GalleryGrid';
+export { Slideshow } from './Slideshow';
+export { AnimatedTimeline } from './AnimatedTimeline';
 export type { GalleryGridProps, GalleryImage } from './GalleryGrid';
 
 export { Timeline } from './Timeline';

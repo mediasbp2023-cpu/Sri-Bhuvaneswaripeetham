@@ -1,58 +1,73 @@
+import { navLinks } from "./links";
 export const images = {
   hero: {
-    home: 'https://images.unsplash.com/photo-1604154322067-1a9a1666c714?q=80&w=1920',
-    aalayam: 'https://images.unsplash.com/photo-1627894006066-a15927f9bea5?q=80&w=1920',
-    aashramam: 'https://images.unsplash.com/photo-1622651783098-0bc7b2212583?q=80&w=1920',
-    guruParampara: 'https://images.unsplash.com/photo-1625295845473-e00c95922772?q=80&w=1920',
+    home: '/images/Background 2.png',
+    aalayam: '/images/hero-home.svg',
+    aashramam: '/images/hero-home.svg',
+    guruParampara: '/images/hero-home.svg',
   },
   gallery: {
     temple: [
       {
-        src: 'https://images.unsplash.com/photo-1612870743706-908136269aa6?q=80&w=800',
-        alt: 'Temple main entrance',
-        width: 800,
-        height: 600,
-        caption: 'Main Entrance'
+        src: '/images/gallery/Ashrama Dwaram.jpg',
+        alt: 'Ashrama Dwaram - Temple Entrance',
+        width: 1200,
+        height: 800,
+        caption: 'Ashrama Dwaram - Sacred Entrance'
       },
       {
-        src: 'https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?q=80&w=800',
-        alt: 'Temple interior',
-        width: 800,
-        height: 600,
-        caption: 'Sacred Interior'
+        src: '/images/gallery/Panchamukha Anjaneya Swamy.jpg',
+        alt: 'Panchamukha Anjaneya Swamy',
+        width: 1200,
+        height: 800,
+        caption: 'Panchamukha Anjaneya Swamy'
       },
       {
-        src: 'https://images.unsplash.com/photo-1606298855672-3efb63017be8?q=80&w=800',
-        alt: 'Temple rituals',
-        width: 800,
-        height: 600,
-        caption: 'Morning Rituals'
+        src: '/images/gallery/Rudramandalam.jpg',
+        alt: 'Rudramandalam - Sacred Space',
+        width: 1200,
+        height: 800,
+        caption: 'Rudramandalam'
       },
       {
-        src: 'https://images.unsplash.com/photo-1604154322067-1a9a1666c714?q=80&w=800',
-        alt: 'Temple at sunset',
-        width: 800,
-        height: 600,
-        caption: 'Evening Aarti'
+        src: '/images/gallery/Yagashala.jpg',
+        alt: 'Yagashala - Ritual Hall',
+        width: 1200,
+        height: 800,
+        caption: 'Yagashala - Sacred Ritual Hall'
+      },
+      {
+        src: '/images/gallery/home-1.svg',
+        alt: 'Temple main entrance view',
+        width: 1200,
+        height: 800,
+        caption: 'Temple Main Entrance'
+      },
+      {
+        src: '/images/gallery/home-2.svg',
+        alt: 'Morning pooja and rituals',
+        width: 1200,
+        height: 800,
+        caption: 'Morning Pooja'
       }
     ],
     events: [
       {
-        src: 'https://images.unsplash.com/photo-1622651783098-0bc7b2212583?q=80&w=800',
+        src: '/images/aalayam/1.svg',
         alt: 'Community gathering',
         width: 800,
         height: 600,
         caption: 'Community Celebrations'
       },
       {
-        src: 'https://images.unsplash.com/photo-1627894006066-a15927f9bea5?q=80&w=800',
+        src: '/images/aalayam/2.svg',
         alt: 'Cultural program',
         width: 800,
         height: 600,
         caption: 'Cultural Programs'
       },
       {
-        src: 'https://images.unsplash.com/photo-1625295845473-e00c95922772?q=80&w=800',
+        src: '/images/aalayam/3.svg',
         alt: 'Meditation session',
         width: 800,
         height: 600,
@@ -61,26 +76,92 @@ export const images = {
     ],
     pilgrimage: [
       {
-        src: 'https://images.unsplash.com/photo-1607427293702-036707fc5c51?q=80&w=800',
+        src: '/images/mahapadayatra/route-map.svg',
         alt: 'Pilgrimage path',
         width: 800,
         height: 600,
         caption: 'Sacred Journey'
       },
       {
-        src: 'https://images.unsplash.com/photo-1617940188791-fb0d3cb10504?q=80&w=800',
+        src: '/images/mahapadayatra/route-map.svg',
         alt: 'Village visit',
         width: 800,
         height: 600,
         caption: 'Village Outreach'
       },
       {
-        src: 'https://images.unsplash.com/photo-1620809475812-5e2cf98a12a5?q=80&w=800',
+        src: '/images/mahapadayatra/route-map.svg',
         alt: 'Community service',
         width: 800,
         height: 600,
         caption: 'Community Service'
       }
+    ],
+    pooja: [
+      {
+        src: '/images/pooja/pooja-1.jpg',
+        alt: 'Sacred pooja ceremony 1',
+        width: 800,
+        height: 600,
+        caption: 'Divine Pooja'
+      },
+      {
+        src: '/images/pooja/pooja-2.jpg',
+        alt: 'Sacred pooja ceremony 2',
+        width: 800,
+        height: 600,
+        caption: 'Sacred Rituals'
+      },
+      {
+        src: '/images/pooja/pooja-3.jpg',
+        alt: 'Sacred pooja ceremony 3',
+        width: 800,
+        height: 600,
+        caption: 'Spiritual Offering'
+      },
+      {
+        src: '/images/pooja/pooja-4.jpg',
+        alt: 'Sacred pooja ceremony 4',
+        width: 800,
+        height: 600,
+        caption: 'Holy Ceremony'
+      },
+      {
+        src: '/images/pooja/pooja-5.jpg',
+        alt: 'Sacred pooja ceremony 5',
+        width: 800,
+        height: 600,
+        caption: 'Divine Blessings'
+      },
+      {
+        src: '/images/pooja/pooja-6.jpg',
+        alt: 'Sacred pooja ceremony 6',
+        width: 800,
+        height: 600,
+        caption: 'Sacred Worship'
+      },
+      {
+        src: '/images/pooja/pooja-7.jpg',
+        alt: 'Sacred pooja ceremony 7',
+        width: 800,
+        height: 600,
+        caption: 'Spiritual Practice'
+      },
+      {
+        src: '/images/pooja/pooja-8.jpg',
+        alt: 'Sacred pooja ceremony 8',
+        width: 800,
+        height: 600,
+        caption: 'Divine Connection'
+      },
+      {
+        src: '/images/pooja/pooja-9.jpg',
+        alt: 'Sacred pooja ceremony 9',
+        width: 800,
+        height: 600,
+        caption: 'Holy Worship'
+      }
     ]
   }
 };
+export { navLinks };

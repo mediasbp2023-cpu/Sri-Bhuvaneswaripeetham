@@ -1,89 +1,168 @@
-import { HeroBanner, GalleryGrid } from "@/components";
-import Image from "next/image";
+import { GalleryGrid, Slideshow } from "@/components";
+import Link from 'next/link';
 import { images } from "./constants/images";
 
 export default function Home() {
   return (
-    <div>
-      {/* Full-width orange hero with central poster card */}
-      <section className="w-full bg-orange-400">
-        <div className="max-w-6xl mx-auto relative">
-          {/* Side decorative placeholders (can be replaced with lotus SVGs) */}
-          <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-48 bg-[url('/images/placeholder-left.png')] bg-contain bg-center bg-no-repeat" />
-          <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-48 bg-[url('/images/placeholder-right.png')] bg-contain bg-center bg-no-repeat" />
-
-          <div className="px-6 py-10 flex justify-center">
-            <div className="w-full max-w-4xl">
-              <div className="bg-white rounded-xl p-4 shadow-lg">
-                <div className="relative aspect-[3/2]">
-                  <Image
-                    src={images.gallery.temple[0].src}
-                    alt={images.gallery.temple[0].alt}
-                    fill
-                    className="object-contain rounded-lg"
-                    priority
-                  />
-                </div>
-              </div>
+    <div className="relative min-h-screen">
+      {/* Background Image with Bhuvaneshwari Peetham */}
+      <div className="fixed inset-0 z-0">
+        <img 
+          src="/images/Background 2.png" 
+          alt="Bhuvaneshwari Peetham Background" 
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-amber-900/40 via-orange-800/30 to-yellow-900/50"></div>
+      </div>
+      
+      {/* Content */}
+        <div className="relative z-10">
+        {/* Hero Section with Bhuvaneshwari Peetham Title */}
+        <section className="min-h-screen flex items-center justify-center text-center text-white">
+          <div className="max-w-4xl mx-auto px-6">
+            {/* Top Action Buttons - Same color as Book a Pooja */}
+            <h1 className="text-6xl md:text-8xl font-serif mb-6 text-shadow-lg">
+              Bhuvaneshwari Peetham
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 text-white/90 font-light">
+              A sanctuary of peace, devotion, and spiritual awakening
+            </p>
+            
+            {/* Book a Pooja Button */}
+            <div className="mt-12">
+              <Link 
+                href="/pooja" 
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-[#800000] font-semibold rounded-full hover:from-[#FFA500] hover:to-[#FFD700] transition-all duration-300 transform hover:scale-105 shadow-2xl text-lg"
+              >
+                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 2L3 7v11a2 2 0 002 2h10a2 2 0 002-2V7l-7-5z"/>
+                  <path d="M10 2v18m-5-8h10"/>
+                </svg>
+                Book a Pooja
+              </Link>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Quick-action pill navigation placed overlapping hero bottom */}
-      <section className="bg-transparent">
-        <div className="max-w-6xl mx-auto px-6 -mt-10">
-          <div className="flex flex-wrap items-center justify-center gap-6">
-            <a href="/aalayam" className="min-w-[220px] max-w-sm flex flex-col rounded-full bg-orange-50 border border-orange-100 p-4 shadow-sm">
-              <span className="text-orange-600 font-semibold">Visit Temple</span>
-              <span className="text-sm text-zinc-600">Plan your visit to Bhuvaneshwari Peetham</span>
-            </a>
-
-            <a href="/guru-parampara" className="min-w-[220px] max-w-sm flex flex-col rounded-full bg-orange-50 border border-orange-100 p-4 shadow-sm">
-              <span className="text-orange-600 font-semibold">Our Lineage</span>
-              <span className="text-sm text-zinc-600">Learn about our spiritual guides</span>
-            </a>
-
-            <a href="/aashramam" className="min-w-[220px] max-w-sm flex flex-col rounded-full bg-orange-50 border border-orange-100 p-4 shadow-sm">
-              <span className="text-orange-600 font-semibold">Join Activities</span>
-              <span className="text-sm text-zinc-600">Participate in spiritual programs</span>
-            </a>
-
-            <a href="/donate" className="min-w-[220px] max-w-sm flex flex-col rounded-full bg-orange-700 text-white p-4 shadow-md">
-              <span className="text-white font-semibold">Support Us</span>
-              <span className="text-sm text-orange-100">Contribute to our mission</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <main className="max-w-6xl mx-auto px-6 py-6">
-        {/* Welcome / Telugu heading Section */}
-        <section className="mb-8 text-center bg-[url('/images/bg-pattern.png')] bg-top bg-no-repeat py-12">
-          <h2 className="text-4xl font-extrabold mb-4 text-orange-600">శ్రీ భువనేశ్వరి ఆలయ పూజలు</h2>
+        </section>
+      
+      <main className="max-w-6xl mx-auto px-6 py-12">
+        {/* Welcome Section */}
+        <section className="mb-16 text-center">
+          <h2 className="text-3xl font-bold mb-4">Welcome to Our Sacred Space</h2>
           <p className="text-lg text-zinc-600 max-w-3xl mx-auto">
-            Discover the divine presence and spiritual heritage at Bhuvaneshwari Peetham.
+            Discover the divine presence and spiritual heritage at Bhuvaneshwari Peetham, 
+            where ancient wisdom meets contemporary devotion.
           </p>
         </section>
 
-        {/* Featured Gallery */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-semibold mb-6">Temple Gallery</h2>
-          <GalleryGrid
-            images={images.gallery.temple}
-            columns={4}
-            className="mb-8"
-          />
+        {/* Divine Pooja Ceremonies */}
+        <section className="py-16 bg-gradient-to-br from-[#FFFFF0] via-[#FFF8DC] to-[#F5E6D3] relative">
+          <div className="max-w-6xl mx-auto px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-[#800000] mb-4 font-serif">
+                Divine Pooja Ceremonies
+              </h2>
+              <div className="w-32 h-1 bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] mx-auto mb-6"></div>
+              <p className="text-lg text-[#800000]/80 max-w-2xl mx-auto">
+                Experience the sacred rituals and ceremonies performed with devotion and tradition
+              </p>
+            </div>
+            
+            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-[#FFD700]/20">
+              <Slideshow 
+                images={images.gallery.pooja} 
+                interval={5000}
+                className="mb-6"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Sacred Moments Gallery */}
+        <section className="py-16 bg-gradient-to-br from-[#FFFFF0] via-[#FFF8DC] to-[#F5E6D3] relative">
+          <div className="max-w-6xl mx-auto px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-[#800000] mb-4 font-serif">
+                Sacred Moments Gallery
+              </h2>
+              <div className="w-32 h-1 bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] mx-auto mb-6"></div>
+              <p className="text-lg text-[#800000]/80 max-w-2xl mx-auto">
+                Cherish the divine moments and spiritual experiences captured in our sacred gallery
+              </p>
+            </div>
+            
+            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-[#FFD700]/20">
+              <GalleryGrid images={images.gallery.events.slice(0, 6)} />
+            </div>
+            
+            <div className="text-center mt-8">
+              <Link href="/gallery" className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-[#800000] rounded-xl hover:from-[#FFA500] hover:to-[#FFD700] transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold">
+                View All Moments
+                <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Temple Gallery Slideshow */}
+        <section className="py-16 bg-gradient-to-br from-[#FFFFF0] via-[#FFF8DC] to-[#F5E6D3]">
+          <div className="max-w-7xl mx-auto px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-[#800000] mb-4 font-serif">
+                Temple Gallery
+              </h2>
+              <div className="w-32 h-1 bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] mx-auto mb-6"></div>
+              <p className="text-lg text-[#800000]/80 max-w-2xl mx-auto">
+                Experience the divine beauty and sacred architecture of Bhuvaneshwari Peetham through these blessed images
+              </p>
+            </div>
+            
+            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-[#FFD700]/20">
+              <Slideshow 
+                images={images.gallery.temple.slice(0, 4)} 
+                interval={4000}
+                className="mb-6"
+              />
+            </div>
+            
+            <div className="text-center mt-8">
+              <Link href="/gallery" className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-[#800000] rounded-xl hover:from-[#FFA500] hover:to-[#FFD700] transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold">
+                View Full Gallery
+                <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+          </div>
         </section>
 
         {/* Recent Events */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-semibold mb-6">Recent Events</h2>
-          <GalleryGrid
-            images={images.gallery.events}
-            columns={3}
-            className="mb-8"
-          />
+        <section className="py-16 bg-gradient-to-br from-[#FFFFF0] via-[#FFF8DC] to-[#F5E6D3] relative">
+          <div className="max-w-6xl mx-auto px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-[#800000] mb-4 font-serif">
+                Recent Events
+              </h2>
+              <div className="w-32 h-1 bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] mx-auto mb-6"></div>
+              <p className="text-lg text-[#800000]/80 max-w-2xl mx-auto">
+                Stay updated with our latest spiritual events and community gatherings
+              </p>
+            </div>
+            
+            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-[#FFD700]/20">
+              <GalleryGrid images={images.gallery.pilgrimage.slice(0, 4)} />
+            </div>
+            
+            <div className="text-center mt-8">
+              <Link href="/events" className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-[#800000] rounded-xl hover:from-[#FFA500] hover:to-[#FFD700] transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold">
+                View All Events
+                <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+          </div>
         </section>
 
         {/* Quick Links Grid */}
@@ -92,7 +171,7 @@ export default function Home() {
             {
               title: "Visit Temple",
               description: "Plan your visit to Bhuvaneshwari Peetham",
-              link: "/aalayam"
+              link: "/alayam"
             },
             {
               title: "Our Lineage",
@@ -110,17 +189,19 @@ export default function Home() {
               link: "/donate"
             }
           ].map((item) => (
-            <a
+            <Link
               key={item.title}
               href={item.link}
               className="block p-6 rounded-xl border border-zinc-200 hover:border-orange-200 hover:bg-orange-50/50 transition-colors"
             >
               <h3 className="font-semibold mb-2">{item.title}</h3>
               <p className="text-sm text-zinc-600">{item.description}</p>
-            </a>
+            </Link>
           ))}
         </section>
       </main>
     </div>
+    </div>
   );
 }
+

@@ -2,6 +2,9 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { navLinks } from '@/app/constants/links';
+import { SubMenu } from './SubMenu';
+import { TopButtons } from './TopButtons';
 
 export interface NavbarProps {
   className?: string;
@@ -10,140 +13,109 @@ export interface NavbarProps {
 export function Navbar({ className = '' }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const links = [
-    { href: '/', label: 'Home' },
-    { href: '/aalayam', label: 'Aalayam' },
-    { href: '/aashramam', label: 'Aashramam' },
-    { href: '/guru-parampara', label: 'Guru Parampara' },
-    { href: '/mahapadayatra', label: 'Mahapadayatra' },
-    { href: '/donate', label: 'Donate' },
-    { href: '/feedback', label: 'Feedback' },
-    { href: '/contact', label: 'Contact' },
-  ];
-
   return (
-    <header className={`bg-white sticky top-0 z-50 shadow-sm ${className}`}>
-      <div className="mx-auto max-w-6xl px-6">
+    <header className={`bg-[#F07E2D] text-[#FFFFF0] sticky top-0 z-50 shadow-lg ${className}`}>
+      <div className="mx-auto max-w-7xl px-6">
+        {/* Top Row */}
         <div className="flex items-center justify-between h-16">
-          {/* Left: Logo */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 ml-2">
             <Link href="/" className="flex items-center gap-3">
-              {/* Placeholder logo - replace with SVG at public/images/logo.svg */}
-              <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold">BP</div>
-              <span className="hidden sm:inline-block font-semibold">Bhuvaneshwari Peetham</span>
+              <img 
+                src="/images/bp-logo.jpg" 
+                alt="Bhuvaneshwari Peetham Logo" 
+                className="w-12 h-12 rounded-full object-cover border-2 border-[#FFD700]"
+              />
+              <div className="hidden sm:flex flex-col leading-tight">
+                <span className="font-serif text-xl font-bold text-[#FFD700]">Bhuvaneshwari Peetham</span>
+                <small className="text-xs text-[#FFFFF0]/80">Aalayam & Ashramam</small>
+              </div>
             </Link>
           </div>
-
-          {/* Center: Navigation */}
-          <nav className="hidden lg:flex gap-8 items-center">
-            <Link href="/aalayam" className="text-zinc-800 hover:text-orange-600 transition">Aalayam</Link>
-            <Link href="/aashramam" className="text-zinc-800 hover:text-orange-600 transition">Ashramam</Link>
-            <Link href="/anugraham" className="text-zinc-800 hover:text-orange-600 transition">Anugraham</Link>
-            <Link href="/guru-parampara" className="text-zinc-800 hover:text-orange-600 transition">Guru Parampara</Link>
-            <div className="relative group">
-              <Link href="/mahapadayatra" className="text-zinc-800 hover:text-orange-600 transition">Mahapadayatra</Link>
-              {/* future dropdown */}
+          <nav className="hidden lg:flex gap-6 items-center text-sm">
+            <TopButtons />
+            <div className="flex items-center gap-4 ml-2">
+              <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#FFD700] transition-colors duration-300">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35C.59 0 0 .59 0 1.325v21.35C0 23.41.59 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.142v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.735 0 1.325-.59 1.325-1.325V1.325C24 .59 23.405 0 22.675 0z"/></svg>
+              </a>
+              <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#FFD700] transition-colors duration-300">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"/></svg>
+              </a>
+              <a href="https://youtu.be/LfDiX4pJPvc" target="_blank" rel="noopener noreferrer" className="hover:text-[#FFD700] transition-colors duration-300">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </a>
             </div>
           </nav>
-
-          {/* Right: Donate CTA and mobile menu */}
-          <div className="flex items-center gap-4">
-            <Link href="/donate" className="hidden md:inline-flex items-center gap-2 px-5 py-2 rounded-full bg-orange-600 text-white hover:bg-orange-700 transition">
-              Donate
-            </Link>
-
-            {/* Mobile menu button */}
+          <div className="flex items-center lg:hidden">
             <button
-              className="lg:hidden p-2 rounded-md hover:bg-gray-100"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
+              className="p-2 rounded-md hover:bg-white/10 transition-colors"
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {isMenuOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 )}
               </svg>
             </button>
           </div>
         </div>
 
-        {/* Mobile navigation */}
-        {isMenuOpen && (
-          <nav className="md:hidden py-4 space-y-2">
-            {links.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className="block py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {label}
-              </Link>
+        {/* Bottom Row */}
+        <div className="hidden lg:flex items-center justify-center h-12 bg-[#800000]/50 rounded-t-lg">
+          <nav className="flex gap-8 items-center text-base">
+            {navLinks.bottomRow.map((link) => (
+              <div key={link.href} className="relative group">
+                <Link href={link.href} className="hover:text-[#FFD700] transition-colors duration-300 flex items-center gap-1">
+                  {link.label}
+                  {link.submenu && (
+                    <svg className="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                  )}
+                </Link>
+                {link.submenu && (
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 opacity-0 group-hover:opacity-100 group-hover:mt-0 transition-all duration-300 pointer-events-none group-hover:pointer-events-auto">
+                    <SubMenu items={link.submenu} />
+                  </div>
+                )}
+              </div>
             ))}
           </nav>
-        )}
-
-        {/* Quick action navigation (prominent) */}
-        <div className="border-t border-gray-100">
-          <div className="mx-auto max-w-4xl px-6 py-3">
-            {/* Desktop quick nav */}
-            <div className="hidden md:flex items-center justify-center gap-4">
-              <Link href="/aalayam" className="px-4 py-2 rounded-full bg-orange-50 text-orange-700 border border-orange-100 hover:bg-orange-100 transition">
-                <div className="text-sm font-medium">Visit Temple</div>
-                <div className="text-xs text-zinc-600">Plan your visit to Bhuvaneshwari Peetham</div>
-              </Link>
-
-              <Link href="/guru-parampara" className="px-4 py-2 rounded-full bg-orange-50 text-orange-700 border border-orange-100 hover:bg-orange-100 transition">
-                <div className="text-sm font-medium">Our Lineage</div>
-                <div className="text-xs text-zinc-600">Learn about our spiritual guides</div>
-              </Link>
-
-              <Link href="/aashramam" className="px-4 py-2 rounded-full bg-orange-50 text-orange-700 border border-orange-100 hover:bg-orange-100 transition">
-                <div className="text-sm font-medium">Join Activities</div>
-                <div className="text-xs text-zinc-600">Participate in spiritual programs</div>
-              </Link>
-
-              <Link href="/donate" className="px-4 py-2 rounded-full bg-orange-600 text-white hover:bg-orange-700 transition">
-                <div className="text-sm font-medium">Support Us</div>
-                <div className="text-xs">Contribute to our mission</div>
-              </Link>
-            </div>
-
-            {/* Mobile quick nav */}
-            <div className="md:hidden grid grid-cols-2 gap-2 mt-3">
-              <Link href="/aalayam" className="block p-3 rounded-lg bg-orange-50 text-orange-700">
-                <div className="text-sm font-medium">Visit Temple</div>
-              </Link>
-              <Link href="/guru-parampara" className="block p-3 rounded-lg bg-orange-50 text-orange-700">
-                <div className="text-sm font-medium">Our Lineage</div>
-              </Link>
-              <Link href="/aashramam" className="block p-3 rounded-lg bg-orange-50 text-orange-700">
-                <div className="text-sm font-medium">Join Activities</div>
-              </Link>
-              <Link href="/donate" className="block p-3 rounded-lg bg-orange-600 text-white">
-                <div className="text-sm font-medium">Support Us</div>
-              </Link>
-            </div>
-          </div>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="lg:hidden bg-[#800000]/95 backdrop-blur-sm absolute top-full left-0 w-full">
+          <nav className="flex flex-col p-4 gap-2">
+            {[...navLinks.topRow, ...navLinks.bottomRow].map((link) => (
+              <div key={link.href}>
+                <Link
+                  href={link.href}
+                  className="block py-2 px-3 rounded-md hover:bg-white/10 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+                {link.submenu && (
+                  <div className="pl-4 pt-2">
+                    {link.submenu.map((sublink) => (
+                      <Link
+                        key={sublink.href}
+                        href={sublink.href}
+                        className="block py-1.5 px-3 text-sm rounded-md hover:bg-white/10 transition-colors"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {sublink.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </nav>
+        </div>
+      )}
     </header>
   );
 }

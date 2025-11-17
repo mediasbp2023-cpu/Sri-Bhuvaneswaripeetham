@@ -1,0 +1,77 @@
+flowchart TD
+  subgraph HEADER["Header (visible on every page)"]
+    H["Logo / Navigation"]
+  end
+
+  H --> Home["Home"]
+  H --> Aalayam["Aalayam"]
+  H --> Aashramam["Aashramam"]
+  H --> GuruParampara["Guru Parampara"]
+  H --> Mahapadayatra["Mahapadayatra"]
+  H --> Donate["Donate"]
+  H --> Feedback["Feedback"]
+  H --> Contact["Contact"]
+
+  %% Home sub-sections
+  Home --> Hero["Hero Section"]
+  Home --> Intro["Brief Introduction"]
+  Home --> QuickCards["Quick Access Cards"]
+  QuickCards --> Aalayam
+  QuickCards --> GuruParampara
+  QuickCards --> Donate
+  QuickCards --> Mahapadayatra
+  Home --> Events["Upcoming Events / Announcements"]
+
+  %% Aalayam
+  Aalayam --> About["About Section: History & Significance"]
+  Aalayam --> Timeline["Temple History Timeline"]
+  Aalayam --> GalleryA["Gallery (Rituals, Festivals, Premises)"]
+  Aalayam --> SpecialEvents["Special Events / Annual Poojas"]
+
+  %% Aashramam
+  Aashramam --> AshramHistory["History (Since 1952)"]
+  Aashramam --> Anugraham["Anugraham (Teachings & Blessings)"]
+  Aashramam --> Activities["Activities: Seva / Education / Welfare"]
+
+  %% Guru Parampara
+  GuruParampara --> GPIntro["Introduction to Guru Lineage"]
+  GuruParampara --> Cards["Hierarchy Display (cards)"]
+  Cards --> SwamijiCard["Swamiji (photo, name, period, read more)"]
+  SwamijiCard --> SwamijiPage["Swamiji individual page: bio, gallery, contributions"]
+  GuruParampara --> Current["Current Swamiji"]
+  Current --> Travel["Travel history since 2007 (Map & Timeline)"]
+  Current --> Residence["Currently residing at..."]
+
+  %% Mahapadayatra
+  Mahapadayatra --> YIntro["Introduction & Significance"]
+  Mahapadayatra --> Route["Journey Route"]
+  Mahapadayatra --> Participation["Devotee Participation"]
+  Mahapadayatra --> Experiences["Experiences During the Yatra"]
+  Mahapadayatra --> Renovation["Renovation Work & Projects"]
+  Mahapadayatra --> GalleryY["Gallery & Videos"]
+  Renovation --> Donate
+
+  %% Donate
+  Donate --> DOverview["Message from Swamiji / Importance of Seva"]
+  Donate --> Options["Donation Options & Categories"]
+  Donate --> DForm["Donation Form (Name, Email, Amount, Category)"]
+  Donate --> QR["UPI / QR Code Integration / Payment"]
+  Donate --> DThanks["Thank you / Confirmation"]
+
+  %% Feedback
+  Feedback --> Testimonials["Villagers’ Testimonials (video/text)"]
+  Feedback --> VisitorForm["Visitor Feedback Form"]
+
+  %% Contact
+  Contact --> Address["Temple Address, Map & Timings"]
+  Contact --> ContactForm["Contact Form"]
+  Contact --> Social["Social links / Newsletter Signup"]
+
+  %% Footer
+  subgraph FOOTER["Footer (common to all pages)"]
+    F["Quick Links / Contact / Copyright"]
+  end
+  FOOTER --> Home
+  FOOTER --> Contact
+
+  classDef common fill:#f3f4f6,stroke:#333,stroke-width:1px;

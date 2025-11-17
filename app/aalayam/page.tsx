@@ -15,7 +15,7 @@ export default function AalayamPage() {
       <main className="max-w-4xl mx-auto px-6 py-12">
         <section className="prose max-w-none mb-12">
           <h2>About Our Temple</h2>
-          <p className="lead text-xl text-zinc-600">
+          <p className="lead text-xl text-black">
             The Bhuvaneshwari Peetham temple stands as a beacon of spiritual enlightenment,
             where devotees find solace and divine connection.
           </p>
