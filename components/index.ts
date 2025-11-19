@@ -14,3 +14,6 @@ export type { GalleryGridProps, GalleryImage } from './GalleryGrid';
 
 export { Timeline } from './Timeline';
 export type { TimelineProps, TimelineEvent, TimelineStat } from './Timeline';
+
+export { GuruList } from './GuruList';
+export type { GuruListProps } from './GuruList';
