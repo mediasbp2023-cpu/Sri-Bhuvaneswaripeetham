@@ -1,10 +1,16 @@
 'use client';
+import Image from 'next/image';
+import { GuruList } from '@/components';
 
 export default function SKBSPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-brand-cream via-white to-brand-gold/10">
       
-      <div className="max-w-6xl mx-auto px-4 py-16">
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        <GuruList />
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="text-center mb-16">
           <h1 className="text-5xl font-bold text-brand-maroon mb-6">Sri Krishnananda Bharati Swamy</h1>
           <p className="text-xl text-brand-maroon/80 max-w-3xl mx-auto">
@@ -14,7 +20,17 @@ export default function SKBSPage() {
 
         <div className="bg-white rounded-xl shadow-lg p-8 mb-12 border border-brand-gold/20">
           <h2 className="text-3xl font-bold text-brand-maroon mb-6">About Sri Krishnananda Bharati Swamy</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+            <div className="flex justify-center md:justify-start">
+              <Image
+                src="/images/testimonials/person-1.svg"
+                alt="Sri Krishnananda Bharati Swamy portrait"
+                width={256}
+                height={256}
+                className="rounded-full object-cover ring-4 ring-[#FFD700]/50 shadow-xl bg-white"
+                priority
+              />
+            </div>
             <div>
               <h3 className="text-xl font-semibold text-brand-maroon mb-3">Divine Love</h3>
               <p className="text-gray-700 mb-4">
