@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useMemo } from 'react';
-import { HeroBanner } from '@/components';
+import { HeroBanner, GuruList } from '@/components';
 import { guruData as sharedGuruData } from '@/app/constants/guru';
 
 interface GuruData {
@@ -238,7 +238,11 @@ export default function GuruDetailPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <GuruList />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
         {/* Guru Overview with Portrait */}
         <motion.div 
           className="bg-gradient-to-br from-[#FFF8DC] via-[#FFE4B5] to-[#F5DEB3] rounded-3xl p-8 shadow-2xl border-4 border-[#800000]/20 mb-12"
