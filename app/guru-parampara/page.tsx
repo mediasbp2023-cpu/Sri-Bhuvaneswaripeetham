@@ -68,19 +68,7 @@ export default function GuruParamparaPage() {
           </div>
         </section>
 
-        {/* Anchor: top for back-links */}
         <div id="top"></div>
-
-        {/* Quick Links to sections */}
-        <div className="mb-8">
-          <div className="flex flex-wrap gap-3">
-            {Object.values(guruData).map((g) => (
-              <a key={g.id} href={`#${g.id}`} className="text-[#800000] underline hover:text-[#A52A2A] font-semibold">
-                {g.code}
-              </a>
-            ))}
-          </div>
-        </div>
 
         {/* All Guru Details in one page */}
         <div className="space-y-12 mb-16">
