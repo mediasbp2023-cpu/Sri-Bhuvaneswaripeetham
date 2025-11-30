@@ -5,7 +5,7 @@ export const navLinks: NavLinks = {
         { href: "/contact", label: "Contact" },
         { href: "/arjita-sevas", label: "Arjita Sevas" },
         { href: "/volunteer", label: "Volunteer" },
-        { href: "/contribute", label: "Donate" },
+        { href: "/contribute", label: "Contribute" },
     ],
     bottomRow: [
         {

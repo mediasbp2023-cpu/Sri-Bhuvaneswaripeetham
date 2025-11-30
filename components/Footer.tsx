@@ -38,7 +38,7 @@ export function Footer({ className = '' }: FooterProps) {
   ];
 
   return (
-    <footer className={`bg-brand-cream text-brand-maroon ${className}`}>
+    <footer className={`bg-[#FDF3E7] text-black ${className}`}>
       <div className="mx-auto max-w-7xl px-6 py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
           {sections.map((section) => (
@@ -47,7 +47,7 @@ export function Footer({ className = '' }: FooterProps) {
               <ul className="space-y-2">
                 {section.links.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="hover:text-brand-orange transition-colors">
+                    <Link href={link.href} className="hover:text-orange-600 transition-colors">
                       {link.label}
                     </Link>
                   </li>
@@ -59,10 +59,10 @@ export function Footer({ className = '' }: FooterProps) {
             <h3 className="font-bold text-lg mb-4">Follow Us</h3>
             <div className="flex space-x-4 mb-4">
               <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-                <Facebook className="h-6 w-6 hover:text-brand-orange transition-colors" />
+                <Facebook className="h-6 w-6 hover:text-orange-600 transition-colors" />
               </a>
               <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
-                <Youtube className="h-6 w-6 hover:text-brand-orange transition-colors" />
+                <Youtube className="h-6 w-6 hover:text-orange-600 transition-colors" />
               </a>
             </div>
             {/* Placeholder for Google Translate */}
@@ -70,7 +70,7 @@ export function Footer({ className = '' }: FooterProps) {
           </div>
         </div>
       </div>
-      <div className="bg-brand-orange text-brand-ivory py-4">
+      <div className="bg-[#F07E2D] text-white py-4">
         <div className="mx-auto max-w-7xl px-6 flex justify-between items-center text-sm">
           <p>Copyright©{currentYear} by Sri Bhuvaneswari Peetham. All Rights Reserved.</p>
           <div className="flex space-x-4">

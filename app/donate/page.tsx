@@ -1,15 +1,15 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { HeroBanner } from "@/components";
 
-export type Category = {
+type Category = {
   id: string;
   label: string;
   amounts: number[];
 };
 
-export const categories: Category[] = [
+const categories: Category[] = [
   { id: "temple-renovation", label: "Temple Renovation", amounts: [501, 1101, 5101] },
   { id: "maha-paada-yatra", label: "Maha Paada Yatra", amounts: [251, 1001, 2501] },
   { id: "arjita-seva", label: "Aarjita Seva / Pooja", amounts: [101, 501, 1001] },
@@ -18,25 +18,16 @@ export const categories: Category[] = [
 const UPI_VPA = "sbpeetham@okaxis";
 const PAYEE_NAME = "Sri Bhuvaneswari Peetham";
 
-export function DonateForm({ defaultCategoryId }: { defaultCategoryId?: string }) {
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    defaultCategoryId ? categories.find((c) => c.id === defaultCategoryId) ?? null : null
-  );
+export default function DonatePage() {
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const [name, setName] = useState("");
-  const [gothram, setGothram] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [preferredDay, setPreferredDay] = useState("");
-  const [pan, setPan] = useState("");
   const [amount, setAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>("");
   const [showQR, setShowQR] = useState(false);
   const [paid, setPaid] = useState(false);
   const [note, setNote] = useState("");
-  const [paymentRef, setPaymentRef] = useState("");
-
-  const [errors, setErrors] = useState<{ [k: string]: string | null }>({});
 
   const effectiveAmount = useMemo(() => {
     const ca = parseFloat(customAmount);
@@ -68,31 +59,7 @@ export function DonateForm({ defaultCategoryId }: { defaultCategoryId?: string }
     return `https://chart.googleapis.com/chart?cht=qr&chs=300x300&chld=M|0&chl=${enc}`;
   }, [upiLink]);
 
-  // Validation helpers
-  const isAarjita = selectedCategory?.id === "arjita-seva";
-  const validName = name.trim().length >= 2;
-  const validPhone = /^(?:\+?91)?[6-9]\d{9}$/.test(phone.trim());
-  const validEmail = !email.trim() || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
-  const validAddress = !isAarjita || address.trim().length >= 5;
-  const validPAN = !pan.trim() || /^[A-Z]{5}[0-9]{4}[A-Z]$/.test(pan.trim());
-  const canProceed = Boolean(
-    selectedCategory && validName && validPhone && validEmail && validAddress && validPAN && effectiveAmount
-  );
-  const paymentRefValid = !isAarjita || paymentRef.trim().length >= 4;
-  const canConfirm = Boolean(canProceed && paymentRefValid);
-
-  const validateDonor = () => {
-    const e: { [k: string]: string | null } = {};
-    e.name = validName ? null : "Name must be at least 2 characters.";
-    e.mobile = validPhone ? null : "Mobile must be 10 digits (or 91xxxxxxxxxx).";
-    e.email = validEmail ? null : "Enter a valid email address.";
-    if (isAarjita) {
-      e.address = validAddress ? null : "Address must be at least 5 characters.";
-      e.pan = validPAN ? null : "PAN must be ABCDE1234F format.";
-    }
-    setErrors(e);
-    return Object.values(e).every((v) => v === null);
-  };
+  const canProceed = Boolean(selectedCategory && name.trim() && phone.trim() && effectiveAmount);
 
   const handlePay = () => {
     try {
@@ -102,23 +69,14 @@ export function DonateForm({ defaultCategoryId }: { defaultCategoryId?: string }
   };
 
   const handleConfirmPaid = async () => {
-    if (!canConfirm) {
-      validateDonor();
-      return;
-    }
     try {
       const payload = {
         category: selectedCategory?.label,
         name,
         phone,
         email,
-        gothram: isAarjita ? gothram : undefined,
-        address: isAarjita ? address : undefined,
-        preferredDay: isAarjita ? preferredDay : undefined,
-        pan: isAarjita ? pan : undefined,
         amount: effectiveAmount,
         note: upiNote,
-        reference: isAarjita ? paymentRef.trim() : undefined,
         time: new Date().toISOString(),
       };
       const logs = JSON.parse(localStorage.getItem("bp_donations") || "[]");
@@ -132,11 +90,6 @@ export function DonateForm({ defaultCategoryId }: { defaultCategoryId?: string }
     } catch {}
     setPaid(true);
   };
-
-  // Auto-show QR when amount is chosen
-  useEffect(() => {
-    if (effectiveAmount && !showQR) setShowQR(true);
-  }, [effectiveAmount, showQR]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-brand-cream via-white to-brand-gold/10">
@@ -172,78 +125,25 @@ export function DonateForm({ defaultCategoryId }: { defaultCategoryId?: string }
               </div>
 
               <h2 className="text-2xl font-bold text-brand-maroon mb-4">Your Details</h2>
-              {isAarjita && (
-                <div className="mb-4 p-3 bg-brand-gold/10 border border-brand-gold/30 rounded-lg text-sm text-black/80">
-                  <p className="font-semibold text-brand-maroon mb-1">Form requirements</p>
-                  <ul className="list-disc ml-5 space-y-1">
-                    <li>Name: at least 2 characters.</li>
-                    <li>Mobile: 10 digits (supports 91xxxxxxxxxx).</li>
-                    <li>Address: at least 5 characters.</li>
-                    <li>Email: valid format if provided.</li>
-                    <li>PAN: ABCDE1234F format if provided.</li>
-                  </ul>
-                </div>
-              )}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <input
                   className="border rounded-lg px-4 py-3"
                   placeholder="Full Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  onBlur={validateDonor}
                 />
-                {errors.name && <p className="md:col-span-2 text-red-600 text-sm">{errors.name}</p>}
-                {isAarjita && (
-                  <input
-                    className="border rounded-lg px-4 py-3"
-                    placeholder="Gothram"
-                    value={gothram}
-                    onChange={(e) => setGothram(e.target.value)}
-                  />
-                )}
                 <input
                   className="border rounded-lg px-4 py-3"
                   placeholder="Mobile Number"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  onBlur={validateDonor}
                 />
-                {errors.mobile && <p className="md:col-span-2 text-red-600 text-sm">{errors.mobile}</p>}
-                {isAarjita && (
-                  <input
-                    className="border rounded-lg px-4 py-3 md:col-span-2"
-                    placeholder="Address"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    onBlur={validateDonor}
-                  />
-                )}
                 <input
                   className="border rounded-lg px-4 py-3 md:col-span-2"
                   placeholder="Email (optional)"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  onBlur={validateDonor}
                 />
-                {errors.email && <p className="md:col-span-2 text-red-600 text-sm">{errors.email}</p>}
-                {isAarjita && (
-                  <>
-                    <input
-                      className="border rounded-lg px-4 py-3 md:col-span-2"
-                      placeholder="Preferred Day of Pooja"
-                      value={preferredDay}
-                      onChange={(e) => setPreferredDay(e.target.value)}
-                    />
-                    <input
-                      className="border rounded-lg px-4 py-3 md:col-span-2"
-                      placeholder="PAN (for 80G)"
-                      value={pan}
-                      onChange={(e) => setPan(e.target.value.toUpperCase())}
-                      onBlur={validateDonor}
-                    />
-                    {errors.pan && <p className="md:col-span-2 text-red-600 text-sm">{errors.pan}</p>}
-                  </>
-                )}
                 <input
                   className="border rounded-lg px-4 py-3 md:col-span-2"
                   placeholder="Additional note (optional)"
@@ -273,7 +173,6 @@ export function DonateForm({ defaultCategoryId }: { defaultCategoryId?: string }
                   value={customAmount}
                   onChange={(e) => setCustomAmount(e.target.value)}
                 />
-                <p className="text-black/60 text-xs">Minimum donation: ₹50</p>
               </div>
 
               <div className="flex items-center gap-3">
@@ -329,31 +228,13 @@ export function DonateForm({ defaultCategoryId }: { defaultCategoryId?: string }
                 </div>
               )}
 
-              {isAarjita && (
-                <div className="mt-6">
-                  <label className="block text-sm font-semibold text-brand-maroon mb-2">Payment Reference</label>
-                  <input
-                    className="w-full border rounded-lg px-4 py-3"
-                    placeholder="Enter transaction reference (UPI/Bank)"
-                    value={paymentRef}
-                    onChange={(e) => setPaymentRef(e.target.value)}
-                  />
-                  {!paymentRefValid && (
-                    <p className="text-red-600 text-sm mt-1">Reference must be at least 4 characters.</p>
-                  )}
-                  {paymentRefValid && (
-                    <p className="text-black/60 text-xs mt-1">E.g., UPI txn ID or bank ref no.</p>
-                  )}
-                </div>
-              )}
-
               <div className="mt-6 border-t pt-6">
                 <p className="text-sm text-black/70 mb-3">After completing the payment, confirm to receive blessing.</p>
                 <button
-                  disabled={!canConfirm}
+                  disabled={!canProceed}
                   onClick={handleConfirmPaid}
                   className={`w-full px-6 py-3 rounded-lg font-semibold transition-colors ${
-                    canConfirm
+                    canProceed
                       ? "bg-brand-maroon text-brand-gold hover:bg-brand-maroon/90"
                       : "bg-gray-200 text-gray-500 cursor-not-allowed"
                   }`}
@@ -405,8 +286,4 @@ export function DonateForm({ defaultCategoryId }: { defaultCategoryId?: string }
       </div>
     </div>
   );
-}
-
-export default function DonatePage() {
-  return <DonateForm />;
 }
