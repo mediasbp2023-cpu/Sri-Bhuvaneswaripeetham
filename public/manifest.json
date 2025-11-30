@@ -1,0 +1,41 @@
+{
+  "name": "Bhuvaneshwari Peetham",
+  "short_name": "SBP",
+  "description": "Official website of Sri Bhuvaneshwari Peetham - Spiritual guidance and temple services",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFF7EE",
+  "theme_color": "#800000",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/bp-logo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "/images/bp-logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ],
+  "categories": ["spiritual", "religion", "temple"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Guru Parampara",
+      "short_name": "Gurus",
+      "description": "View spiritual lineage",
+      "url": "/guru-parampara",
+      "icons": [{ "src": "/images/bp-logo.jpg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Mahapadayatra",
+      "short_name": "Yatra",
+      "description": "View pilgrimage timeline",
+      "url": "/mahapadayatra",
+      "icons": [{ "src": "/images/bp-logo.jpg", "sizes": "192x192" }]
+    }
+  ]
+}
+

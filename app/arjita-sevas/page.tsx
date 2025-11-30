@@ -77,10 +77,39 @@ export default function ArjitaSevasPage() {
       <div className="max-w-6xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <BackNav />
 
+        {/* Seva Information Section */}
+        <div className="bg-white shadow-lg rounded-xl overflow-hidden border border-brand-gold/20 mb-8">
+          <div className="p-8">
+            <h1 className="text-4xl font-bold text-brand-maroon mb-6 text-center">శ్రీ భువనేశ్వరి పీఠము</h1>
+            
+            <div className="prose max-w-none text-black mb-6">
+              <p className="text-lg leading-relaxed mb-4">
+                శ్రీ శృంగేరి శ్రీ విరూపాక్ష శ్రీ పీఠాధ్యక్ష శ్రీ జగద్గురు శ్రీశ్రీశ్రీ కల్యాణానంద భారతి మహాస్వామి పరంపరా సముల్లసిత శ్రీభువనేశ్వరి పీఠంలో ప్రతినిత్యం ఉదయం - శ్రీచక్ర పూజ లలితా సహస్రనామములతో కుంకుమార్చన; సాయంత్రం - శ్రీదేవి ఖడ్గమాలతో కుంకుమార్చన; ప్రతి శుక్రవారం మరియు పౌర్ణమి - శ్రీచక్ర నవావరణార్చన; ప్రతి సోమవారము మరియు మాస శివరాత్రి - శ్రీ రుద్రమండలమునకు మహాన్యాస పూర్వక రుద్రాభిషేకము జరుగుతున్నవి. భక్తులందరికి స్వాగతం.
+              </p>
+              
+              <h2 className="text-2xl font-bold text-brand-maroon mt-8 mb-4">పై పూజా కార్యక్రమములలో మీ యొక్క గోత్రనామములతో పూజ జరిపించుకొనుటకై</h2>
+              
+              <ul className="list-disc list-inside space-y-2 mb-4">
+                <li>శుక్రవారము లేదా పౌర్ణమినాడు - శ్రీ చక్ర నవావరణార్చనకు;</li>
+                <li>సోమవారము లేదా మాస శివరాత్రినాడు మహాన్యాస పూర్వక రుద్రాభిషేకమునకు;</li>
+                <li>ప్రతినిత్యం జరుగు అమ్మవారి పూజకు కుంకుమార్చనకు;</li>
+              </ul>
+              
+              <p className="text-lg leading-relaxed mb-4">
+                శ్రీ చండీ హోమము, శ్రీ లక్ష్మీ గణపతి హోమము, ఆయుష్ హోమము, నవగ్రహ హోమము, నాగ పూజ, పంచముఖ ఆంజనేయ పూజ/అభిషేకము, తదితర పూజలు, హోమములకు నిర్దేశించిన పూజా రుసుము చెల్లించి మీ గోత్ర నామాలు నమోదు చేయించుకోగలరు. హోమ ద్రవ్యములు కర్త ఏర్పాటు చేయవలెను. కార్యక్రమములో మీరు సకుటుంబముగా పాల్గొనటం అభిలషణీయము.
+              </p>
+              
+              <p className="text-lg leading-relaxed">
+                వివరముల కొరకు అర్చకులు - మల్లేశ్వర శర్మగారిని సంప్రదించగలరు - ఫోన్ : <a href="tel:+919000213949" className="text-brand-maroon hover:underline">+91 90002 13949</a> - <a href="mailto:sbp.info2023@gmail.com" className="text-brand-maroon hover:underline">sbp.info2023@gmail.com</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
         {!submitted && (
           <div className="bg-white shadow-lg rounded-xl overflow-hidden border border-brand-gold/20">
             <div className="p-8">
-              <h1 className="text-4xl font-bold text-brand-maroon mb-2">Arjita Sevas / Pooja Booking</h1>
+              <h2 className="text-3xl font-bold text-brand-maroon mb-2">Book Your Seva</h2>
               <p className="text-sm text-black/70 mb-6">Select date, time slot, and number of tickets</p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

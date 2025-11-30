@@ -31,8 +31,8 @@ export default function Home() {
             {/* Book a Pooja Button */}
             <div className="mt-12">
               <Link 
-                href="/pooja" 
-                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-[#800000] font-semibold rounded-full hover:from-[#FFA500] hover:to-[#FFD700] transition-all duration-300 transform hover:scale-105 shadow-2xl text-lg"
+                href="/arjita-sevas" 
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-brand-gold to-brand-orange text-brand-maroon font-semibold rounded-full hover:from-brand-orange hover:to-brand-gold transition-all duration-300 transform hover:scale-105 shadow-2xl text-lg"
               >
                 <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M10 2L3 7v11a2 2 0 002 2h10a2 2 0 002-2V7l-7-5z"/>
@@ -55,19 +55,19 @@ export default function Home() {
         </section>
 
         {/* Divine Pooja Ceremonies */}
-        <section className="py-16 bg-gradient-to-br from-[#FFFFF0] via-[#FFF8DC] to-[#F5E6D3] relative">
+        <section className="py-16 bg-gradient-to-br from-brand-ivory via-brand-cream to-brand-gold/10 relative">
           <div className="max-w-6xl mx-auto px-8">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-[#800000] mb-4 font-serif">
-                Divine Pooja Ceremonies
+              <h2 className="text-4xl font-bold text-brand-maroon mb-4 font-serif">
+              Divine Pooja Ceremonies
               </h2>
-              <div className="w-32 h-1 bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] mx-auto mb-6"></div>
-              <p className="text-lg text-[#800000]/80 max-w-2xl mx-auto">
+              <div className="w-32 h-1 bg-gradient-to-r from-brand-gold via-brand-orange to-brand-gold mx-auto mb-6"></div>
+              <p className="text-lg text-brand-maroon/80 max-w-2xl mx-auto">
                 Experience the sacred rituals and ceremonies performed with devotion and tradition
               </p>
             </div>
             
-            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-[#FFD700]/20">
+            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-brand-gold/20">
               <Slideshow 
                 images={images.gallery.pooja} 
                 interval={5000}
@@ -78,24 +78,24 @@ export default function Home() {
         </section>
 
         {/* Sacred Moments Gallery */}
-        <section className="py-16 bg-gradient-to-br from-[#FFFFF0] via-[#FFF8DC] to-[#F5E6D3] relative">
+        <section className="py-16 bg-gradient-to-br from-brand-ivory via-brand-cream to-brand-gold/10 relative">
           <div className="max-w-6xl mx-auto px-8">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-[#800000] mb-4 font-serif">
+              <h2 className="text-4xl font-bold text-brand-maroon mb-4 font-serif">
                 Sacred Moments Gallery
               </h2>
-              <div className="w-32 h-1 bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] mx-auto mb-6"></div>
-              <p className="text-lg text-[#800000]/80 max-w-2xl mx-auto">
+              <div className="w-32 h-1 bg-gradient-to-r from-brand-gold via-brand-orange to-brand-gold mx-auto mb-6"></div>
+              <p className="text-lg text-brand-maroon/80 max-w-2xl mx-auto">
                 Cherish the divine moments and spiritual experiences captured in our sacred gallery
               </p>
             </div>
             
-            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-[#FFD700]/20">
+            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-brand-gold/20">
               <GalleryGrid images={images.gallery.events.slice(0, 6)} />
             </div>
             
             <div className="text-center mt-8">
-              <Link href="/gallery" className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-[#800000] rounded-xl hover:from-[#FFA500] hover:to-[#FFD700] transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold">
+              <Link href="/media/photo-gallery" className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-brand-gold to-brand-orange text-brand-maroon rounded-xl hover:from-brand-orange hover:to-brand-gold transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold">
                 View All Moments
                 <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -106,19 +106,19 @@ export default function Home() {
         </section>
 
         {/* Temple Gallery Slideshow */}
-        <section className="py-16 bg-gradient-to-br from-[#FFFFF0] via-[#FFF8DC] to-[#F5E6D3]">
+        <section className="py-16 bg-gradient-to-br from-brand-ivory via-brand-cream to-brand-gold/10">
           <div className="max-w-7xl mx-auto px-8">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-[#800000] mb-4 font-serif">
+              <h2 className="text-4xl font-bold text-brand-maroon mb-4 font-serif">
                 Temple Gallery
               </h2>
-              <div className="w-32 h-1 bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] mx-auto mb-6"></div>
-              <p className="text-lg text-[#800000]/80 max-w-2xl mx-auto">
+              <div className="w-32 h-1 bg-gradient-to-r from-brand-gold via-brand-orange to-brand-gold mx-auto mb-6"></div>
+              <p className="text-lg text-brand-maroon/80 max-w-2xl mx-auto">
                 Experience the divine beauty and sacred architecture of Bhuvaneshwari Peetham through these blessed images
               </p>
             </div>
             
-            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-[#FFD700]/20">
+            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-brand-gold/20">
               <Slideshow 
                 images={images.gallery.temple.slice(0, 4)} 
                 interval={4000}
@@ -127,7 +127,7 @@ export default function Home() {
             </div>
             
             <div className="text-center mt-8">
-              <Link href="/gallery" className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-[#800000] rounded-xl hover:from-[#FFA500] hover:to-[#FFD700] transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold">
+              <Link href="/media/photo-gallery" className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-brand-gold to-brand-orange text-brand-maroon rounded-xl hover:from-brand-orange hover:to-brand-gold transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold">
                 View Full Gallery
                 <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -138,24 +138,24 @@ export default function Home() {
         </section>
 
         {/* Recent Events */}
-        <section className="py-16 bg-gradient-to-br from-[#FFFFF0] via-[#FFF8DC] to-[#F5E6D3] relative">
+        <section className="py-16 bg-gradient-to-br from-brand-ivory via-brand-cream to-brand-gold/10 relative">
           <div className="max-w-6xl mx-auto px-8">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-[#800000] mb-4 font-serif">
+              <h2 className="text-4xl font-bold text-brand-maroon mb-4 font-serif">
                 Recent Events
               </h2>
-              <div className="w-32 h-1 bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] mx-auto mb-6"></div>
-              <p className="text-lg text-[#800000]/80 max-w-2xl mx-auto">
+              <div className="w-32 h-1 bg-gradient-to-r from-brand-gold via-brand-orange to-brand-gold mx-auto mb-6"></div>
+              <p className="text-lg text-brand-maroon/80 max-w-2xl mx-auto">
                 Stay updated with our latest spiritual events and community gatherings
               </p>
             </div>
             
-            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-[#FFD700]/20">
+            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-brand-gold/20">
               <GalleryGrid images={images.gallery.pilgrimage.slice(0, 4)} />
             </div>
             
             <div className="text-center mt-8">
-              <Link href="/events" className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-[#800000] rounded-xl hover:from-[#FFA500] hover:to-[#FFD700] transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold">
+              <Link href="/mahapadayatra" className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-brand-gold to-brand-orange text-brand-maroon rounded-xl hover:from-brand-orange hover:to-brand-gold transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold">
                 View All Events
                 <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -185,7 +185,7 @@ export default function Home() {
             },
             {
               title: "Support Us",
-              description: "Contribute to our mission",
+              description: "Donate to our mission",
               link: "/donate"
             }
           ].map((item) => (
@@ -204,4 +204,3 @@ export default function Home() {
     </div>
   );
 }
-

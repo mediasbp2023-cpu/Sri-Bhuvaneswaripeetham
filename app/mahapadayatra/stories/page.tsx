@@ -167,7 +167,7 @@ export default function MahapadayatraStoriesPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             <button className="bg-brand-maroon text-brand-gold px-6 py-3 rounded-lg font-semibold hover:bg-brand-maroon/90 transition-colors shadow-md">
-              Contribute
+              Donate
             </button>
             <button className="bg-brand-maroon text-brand-gold px-6 py-3 rounded-lg font-semibold hover:bg-brand-maroon/90 transition-colors shadow-md">
               Volunteer

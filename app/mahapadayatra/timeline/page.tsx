@@ -1,383 +1,250 @@
-"use client";
+'use client';
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import Link from "next/link";
-import { BackNav } from "@/components/BackNav";
-import { HeroBanner } from "@/components/HeroBanner";
+import { useState } from 'react';
+import Link from 'next/link';
+import { BackNav } from '@/components/BackNav';
+import { HeroBanner } from '@/components';
 
-type TimelinePeriod = {
-  id: string; // anchor id
-  period: string; // e.g., 2007-2012
-  overview: string;
-  locations: string[];
-  distanceKm: number;
-  milestones: string[];
-  images: string[]; // placeholder image paths
-  mapEmbedUrl?: string;
-};
-
-const DATA: TimelinePeriod[] = [
+const timelineSections = [
   {
-    id: "2007-2012",
-    period: "2007-2012",
-    overview:
-      "The initial years of the Mahapadayatra laid the foundation — reviving village temples, strengthening community faith, and establishing core outreach routes.",
-    locations: ["Andhra Pradesh", "Tamil Nadu", "Karnataka"],
-    distanceKm: 5000,
-    milestones: [
-      "Launched temple revitalization routes",
-      "Conducted village satsangs and annadanam",
-      "Established early volunteer networks",
+    id: 'first-padayatra',
+    title: 'మొదటి పాదయాత్ర',
+    year: '2007-2008',
+    subtitle: 'బాసర నుండి తిరుమల వరకు',
+    description: 'ప్రథమ మహాపాదయాత్ర ప్రారంభం',
+    mainContent: '2007 సెప్టెంబర్ 16, ఋషి పంచమి నుండి 2008 జనవరి 26 వరకు 13 జిల్లాల్లో 130 రోజుల పాటు, 3200 కి.మీ. మహా పాదయాత్ర చేసి తిరుపతిలో 10 వేల మందితో "భక్తిసంగమం" నిర్వహించారు.',
+    stats: [
+      { label: 'రోజులు', value: '130' },
+      { label: 'కి.మీ.', value: '3,200' },
+      { label: 'జిల్లాలు', value: '13' },
+      { label: 'భక్తుల సంగమం', value: '10,000+' }
     ],
-    images: [
-      "/images/placeholder-left.svg",
-      "/images/placeholder-right.svg",
-    ],
-    mapEmbedUrl:
-      "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15551.825!2d77.5946!3d12.9716!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z!5e0!3m2!1sen!2sin!4v0000000000",
+    districts: ['అదిలాబాద్', 'నిజామాబాద్', 'కరీంనగర్', 'వరంగల్', 'నల్గొండ', 'మెదక్', 'రంగారెడ్డి', 'హైదరాబాద్', 'మహబూబ్ నగర్', 'కర్నూల్', 'అనంతపురం', 'కడప', 'చిత్తూరు'],
+    image: '/images/hero-home.svg'
   },
   {
-    id: "2012-2017",
-    period: "2012-2017",
-    overview:
-      "Expansion phase — padayatras traversed longer routes, connecting coastal and interior regions with revived worship and teaching programs.",
-    locations: ["Odisha", "Maharashtra", "Kerala"],
-    distanceKm: 8000,
-    milestones: [
-      "Extended coastal temple circuits",
-      "Pilgrim service centers initiated",
-      "Youth engagement and scriptural camps",
+    id: 'second-padayatra',
+    title: 'రెండవ పాదయాత్ర',
+    year: '2009',
+    subtitle: 'శ్రీకూర్మం నుండి తిరుమల వరకు',
+    description: 'సమగ్ర గ్రామ సందర్శన',
+    mainContent: 'నాగపంచమి 6.8.2009 నుండి 16.2.2009 వరకు 11 జిల్లాలు – 200 రోజులు, 5500 కి.మీ. – 800 గ్రామాలు, దళిత బస్తీలు, గిరిజన బస్తీలు, మత్స్యకార గ్రామాలు సందర్శించి 2009 ఫిబ్రవరి 16న తిరుపతిలో 25 వేల మందితో "మహా భక్తిసంగమం" నిర్వహించారు.',
+    stats: [
+      { label: 'రోజులు', value: '200' },
+      { label: 'కి.మీ.', value: '5,500' },
+      { label: 'గ్రామాలు', value: '800+' },
+      { label: 'భక్తుల సంగమం', value: '25,000+' }
     ],
-    images: [
-      "/images/placeholder-left.svg",
-      "/images/placeholder-right.svg",
-    ],
+    districts: ['శ్రీకాకుళం', 'విజయనగరం', 'విశాఖపట్నం', 'తూర్పుగోదావరి', 'పశ్చిమ గోదావరి', 'ఖమ్మం', 'కృష్ణ', 'గుంటూరు', 'ప్రకాశం', 'నెల్లూరు', 'చిత్తూరు'],
+    image: '/images/hero-home.svg'
   },
   {
-    id: "2017-2022",
-    period: "2017-2022",
-    overview:
-      "Continued journey — deeper outreach in river valleys and forest regions; traditional practices revived and sustained.",
-    locations: ["Madhya Pradesh", "Telangana", "Gujarat"],
-    distanceKm: 11000,
-    milestones: [
-      "River-valley temple restoration",
-      "Community welfare initiatives",
-      "Scriptural training and mentorship",
+    id: 'third-padayatra',
+    title: 'మూడవ మహా పాదయాత్ర',
+    year: '2009-2010',
+    subtitle: 'మహాభాగ్యనగర్ మహా పాదయాత్ర',
+    description: 'సంకల్పిత ప్రయాణం',
+    mainContent: 'మహాభాగ్యనగర్ మహా పాదయాత్ర సంకల్పించి ఆశ్వయుజ శుద్ధ ద్వితీయ నుండి (20.9.2009) నుండి వసంత పంచమి (21.1.2010) వరకు 130 రోజులు, పాదయాత్ర నిర్వహించారు.',
+    stats: [
+      { label: 'రోజులు', value: '130' },
+      { label: 'ప్రారంభం', value: '20.9.2009' },
+      { label: 'ముగింపు', value: '21.1.2010' },
+      { label: 'సంకల్పం', value: 'మహాభాగ్యనగర్' }
     ],
-    images: [
-      "/images/placeholder-left.svg",
-      "/images/placeholder-right.svg",
-    ],
+    districts: ['వివిధ ప్రాంతాలు', 'గ్రామాలు', 'దేవాలయాలు', 'సమాజ కేంద్రాలు'],
+    image: '/images/hero-home.svg'
   },
   {
-    id: "2022-present",
-    period: "2022-Present",
-    overview:
-      "Current phase — consolidating routes, building temples as community hubs, and broad outreach with modern communications.",
-    locations: ["All-India Routes", "Village Networks"],
-    distanceKm: 14000,
-    milestones: [
-      "Comprehensive temple strengthening",
-      "Digital outreach and archives",
-      "Expanded service activities",
+    id: 'rathayatra',
+    title: 'మొదటి రథ యాత్ర',
+    year: '2012-2017',
+    subtitle: 'సంపూర్ణ గ్రామ దేవాలయ సందర్శన',
+    description: 'రథయాత్ర ప్రారంభం',
+    mainContent: '2012లో ప్రారంభించి గ్రామ గ్రామాన రథయాత్ర చేస్తూ వేలాది గ్రామాలూ, దేవాలయాలు సందర్శిస్తూ, గిరిజన యానాదులు అర్చకులుగా ఉన్నటువంటి దేవునివెల్లంపల్లి గ్రామ శివాలయం, తిరుపతి జిల్లా నుండి ఆగస్టు2, 2017 శ్రావణ మాసం నుండి ప్రారంభించి సంపూర్ణ గ్రామ దేవాలయ సందర్శన రథయాత్ర చేసారు.',
+    stats: [
+      { label: 'గ్రామాలు', value: 'వేలాది' },
+      { label: 'దేవాలయాలు', value: 'వేలాది' },
+      { label: 'ప్రారంభం', value: '2012' },
+      { label: 'కాలం', value: '5 సంవత్సరాలు' }
     ],
-    images: [
-      "/images/placeholder-left.svg",
-      "/images/placeholder-right.svg",
-    ],
-  },
+    districts: ['ఆంధ్రప్రదేశ్', 'తెలంగాణ', 'గ్రామాలు', 'దేవాలయాలు'],
+    image: '/images/hero-home.svg'
+  }
 ];
 
 export default function MahapadayatraTimelinePage() {
-  const [pinnedIndex, setPinnedIndex] = useState<number | null>(0);
-  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
-  const [query, setQuery] = useState("");
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const countersRef = useRef<HTMLDivElement | null>(null);
-  const yearRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const filtered = useMemo(() => {
-    if (!query.trim()) return DATA;
-    const q = query.toLowerCase();
-    return DATA.filter(
-      (p) =>
-        p.period.toLowerCase().includes(q) ||
-        p.locations.some((l) => l.toLowerCase().includes(q))
-    );
-  }, [query]);
-
-  // Stats counters animation
-  useEffect(() => {
-    const el = countersRef.current;
-    if (!el) return;
-    const nums = Array.from(el.querySelectorAll("[data-count]"));
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            nums.forEach((node) => {
-              const target = Number(node.getAttribute("data-count") || "0");
-              let current = 0;
-              const step = Math.ceil(target / 60);
-              const tick = () => {
-                current = Math.min(current + step, target);
-                node.textContent = String(current);
-                if (current < target) requestAnimationFrame(tick);
-              };
-              requestAnimationFrame(tick);
-            });
-            obs.disconnect();
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  const scrollToPeriod = (id: string) => {
-    const node = yearRefs.current[id];
-    node?.scrollIntoView({ behavior: "smooth", block: "center" });
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % timelineSections.length);
   };
 
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + timelineSections.length) % timelineSections.length);
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentIndex(index);
+  };
+
+  const currentSection = timelineSections[currentIndex];
+  const prevSection = timelineSections[(currentIndex - 1 + timelineSections.length) % timelineSections.length];
+  const nextSection = timelineSections[(currentIndex + 1) % timelineSections.length];
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-[#FFF7EE] to-[#E67C24]/10">
-      <BackNav />
-
+    <div className="min-h-screen bg-gradient-to-br from-brand-cream via-white to-brand-gold/10">
       <HeroBanner
-        title="Mahapadayatra Journey"
-        subtitle="A spiritual pilgrimage from 2007 to the present"
-        imageSrc="/images/mahapadayatra/hero.jpg"
-        imageAlt="Mahapadayatra"
-        height="large"
+        title="మహాపాదయాత్ర కాలక్రమం"
+        description="Mahapadayatra Timeline - Journey Through Time"
+        height="small"
       />
-
-      {/* Controls & Share */}
-      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mt-8">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <input
-              aria-label="Search by year or location"
-              className="w-full md:w-80 border border-[#E67C24]/40 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#E67C24] bg-white/90"
-              placeholder="Search by year or location"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            <button
-              className="px-4 py-2 rounded-full bg-[#000229] text-white hover:bg-[#000229]/90 transition"
-              onClick={() => setQuery("")}
-              aria-label="Clear search"
-            >
-              Clear
-            </button>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <button
-              className="px-4 py-2 rounded-full bg-[#E67C24] text-white hover:bg-[#E67C24]/90 transition"
-              onClick={() => {
-                if (pinnedIndex !== null) scrollToPeriod(DATA[pinnedIndex].id);
-              }}
-            >
-              Jump to pinned
-            </button>
-            <button
-              className="px-4 py-2 rounded-full border border-[#000229] text-[#000229] hover:bg-[#000229] hover:text-white transition"
-              onClick={() => {
-                if (navigator.share) {
-                  navigator.share({
-                    title: "Mahapadayatra Journey",
-                    url: window.location.href,
-                    text: "Explore the Mahapadayatra timeline",
-                  }).catch(() => void 0);
-                } else {
-                  window.open(
-                    `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                      "Explore the Mahapadayatra timeline"
-                    )}&url=${encodeURIComponent(window.location.href)}`,
-                    "_blank"
-                  );
-                }
-              }}
-              aria-label="Share timeline"
-            >
-              Share
-            </button>
-            <button
-              className="px-4 py-2 rounded-full bg-white border border-[#E67C24] text-[#E67C24] hover:bg-[#FFF2E7] transition"
-              onClick={() => window.print()}
-              aria-label="Download brochure (prints page)"
-            >
-              Download (PDF coming soon)
-            </button>
+      <BackNav />
+      
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-8 sm:py-12">
+        {/* Intro Section */}
+        <div className="bg-gradient-to-r from-brand-maroon/10 to-orange-800/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 mb-6 sm:mb-8 border border-brand-gold/20">
+          <div className="prose max-w-none text-black">
+            <p className="text-base sm:text-lg leading-relaxed mb-4">
+              <strong>భారతదేశమే ఒక దేవాలయం - ప్రతి దేవాలయం ఒక భారతదేశం</strong>
+            </p>
+            <p className="text-sm sm:text-base md:text-lg leading-relaxed">
+              ఈ సంకల్పంతోనే పరమహంస పరివ్రాజకాచార్య శ్రీ శ్రీ శ్రీ కమలానంద భారతీ స్వామిజీ మన దేవాలయాలను మనమే కాపాడుకుందాం, మన దేవాలయాలను మనమే నిర్వహించుకుందాం, మన సమాజాన్ని మనమే సేవించుకుందాం అని సందేశంతో ఇప్పటికే ఆంధ్ర, తెలంగాణ రాష్ట్రాలలో 2007 నుండి 2010 వరకు మూడు మహాపాదయాత్రలు, 2012 నుండి తిరిగి రథయాత్రలను నిర్వహించివున్నారు. ఇందులో భాగంగా దాదాపు 8,500 గ్రామాలలో 35వేలకు పైగా దేవాలయాలను సందర్శించారు.
+            </p>
           </div>
         </div>
-      </div>
 
-      {/* Stats */}
-      <section
-        ref={countersRef}
-        className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mt-8 grid grid-cols-1 md:grid-cols-3 gap-6"
-      >
-        <div className="bg-white rounded-2xl shadow p-6 border border-[#E67C24]/30 text-center">
-          <div className="text-4xl font-extrabold text-[#E67C24]" data-count={38000}>0</div>
-          <div className="text-[#000229] mt-1">Total kilometers walked</div>
+        {/* Timeline Cards - Responsive Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
+          {timelineSections.map((section, index) => (
+            <button
+              key={section.id}
+              onClick={() => goToSlide(index)}
+              className={`bg-white rounded-xl sm:rounded-2xl shadow-lg p-4 sm:p-6 border-2 transition-all text-left ${
+                currentIndex === index
+                  ? 'border-brand-maroon ring-4 ring-brand-gold/30'
+                  : 'border-brand-gold/20 hover:border-brand-maroon/50'
+              }`}
+            >
+              <div className="text-xs sm:text-sm text-gray-500 mb-2">{section.year}</div>
+              <h3 className="text-base sm:text-lg md:text-xl font-bold text-brand-maroon mb-2">
+                {section.title}
+              </h3>
+              <p className="text-xs sm:text-sm text-gray-700 mb-3">{section.subtitle}</p>
+              <div className="flex items-center text-brand-maroon text-xs sm:text-sm">
+                <span>Read More →</span>
+              </div>
+            </button>
+          ))}
         </div>
-        <div className="bg-white rounded-2xl shadow p-6 border border-[#E67C24]/30 text-center">
-          <div className="text-4xl font-extrabold text-[#E67C24]" data-count={21}>0</div>
-          <div className="text-[#000229] mt-1">States/regions visited</div>
-        </div>
-        <div className="bg-white rounded-2xl shadow p-6 border border-[#E67C24]/30 text-center">
-          <div className="text-4xl font-extrabold text-[#E67C24]" data-count={18}>0</div>
-          <div className="text-[#000229] mt-1">Years of journey</div>
-        </div>
-      </section>
 
-      {/* Timeline: vertical sections arranged horizontally */}
-      <div ref={containerRef} className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-16">
-        <div className="overflow-x-auto pb-6">
-          <div className="grid grid-flow-col auto-cols-[minmax(260px,320px)] gap-6 snap-x snap-mandatory">
-            {filtered.map((p, i) => {
-              const active = pinnedIndex === i || hoverIndex === i;
-              return (
-                <div
-                  key={p.id}
-                  id={p.id}
-                  ref={(node) => {
-                    yearRefs.current[p.id] = node;
-                  }}
-                  className="relative snap-start group bg-white/95 backdrop-blur rounded-2xl shadow-xl border border-[#000229]/10 p-4"
-                  onMouseEnter={() => setHoverIndex(i)}
-                  onMouseLeave={() => setHoverIndex(null)}
+        {/* Detailed View */}
+        <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 border-2 border-brand-gold/20 mb-8">
+          <div className="mb-6">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-maroon mb-2">
+                  {currentSection.title}
+                </h2>
+                <p className="text-lg sm:text-xl md:text-2xl font-semibold text-brand-maroon/80 mb-2">
+                  {currentSection.year}
+                </p>
+                <p className="text-base sm:text-lg text-gray-700">{currentSection.subtitle}</p>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={prevSlide}
+                  className="w-10 h-10 rounded-full bg-brand-maroon text-white hover:bg-brand-maroon/90 transition-colors flex items-center justify-center"
+                  aria-label="Previous"
                 >
-                  <header className="flex items-center justify-between">
-                    <h3 className="text-xl font-bold text-[#000229]">{p.period}</h3>
-                    <div className="flex items-center gap-2">
-                      <button
-                        className="text-xs px-3 py-1 rounded-full bg-[#E67C24] text-white hover:bg-[#E67C24]/90"
-                        onClick={() => setPinnedIndex(i)}
-                      >
-                        Pin
-                      </button>
-                      <button
-                        className="text-xs px-3 py-1 rounded-full border border-[#000229] text-[#000229] hover:bg-[#000229] hover:text-white"
-                        onClick={() => scrollToPeriod(p.id)}
-                      >
-                        Focus
-                      </button>
-                    </div>
-                  </header>
+                  ←
+                </button>
+                <button
+                  onClick={nextSlide}
+                  className="w-10 h-10 rounded-full bg-brand-maroon text-white hover:bg-brand-maroon/90 transition-colors flex items-center justify-center"
+                  aria-label="Next"
+                >
+                  →
+                </button>
+              </div>
+            </div>
+          </div>
 
-                  {/* Vertical marker inside the column */}
-                  <div className="relative my-4 h-56 flex justify-center">
-                    <div className="w-[3px] h-full bg-gradient-to-b from-[#E67C24] via-[#000229] to-[#E67C24]" />
-                    <button
-                      className={`absolute top-1/2 -translate-y-1/2 w-6 h-6 rounded-full border-4 ${
-                        active ? "bg-[#E67C24] border-[#000229]" : "bg-[#000229] border-white"
-                      } shadow focus:outline-none focus:ring-4 focus:ring-[#E67C24]/50`}
-                      onClick={() => setPinnedIndex(pinnedIndex === i ? null : i)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") {
-                          e.preventDefault();
-                          setPinnedIndex(pinnedIndex === i ? null : i);
-                        }
-                      }}
-                      aria-label={`Year period ${p.period}. ${active ? "Expanded" : "Collapsed"}`}
-                    />
-                  </div>
+          <div className="prose max-w-none text-black mb-6">
+            <p className="text-base sm:text-lg leading-relaxed mb-6">
+              {currentSection.mainContent}
+            </p>
+          </div>
 
-                  {/* Expandable description */}
-                  <div
-                    className={`transition-all duration-300 ${
-                      active ? "opacity-100 max-h-[1000px]" : "opacity-0 max-h-0"
-                    } overflow-hidden`}
-                  >
-                    <p className="text-[#000229]/80">{p.overview}</p>
-
-                    <div className="mt-4 grid grid-cols-1 gap-3">
-                      <div className="bg-[#FFF7EE] rounded-xl p-3 border border-[#E67C24]/20">
-                        <div className="font-semibold text-[#E67C24]">Key Locations</div>
-                        <ul className="mt-2 text-[#000229]/80 list-disc list-inside">
-                          {p.locations.map((l) => (
-                            <li key={l}>{l}</li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div className="bg-[#FFF7EE] rounded-xl p-3 border border-[#E67C24]/20">
-                        <div className="font-semibold text-[#E67C24]">Distance Covered</div>
-                        <div className="mt-1 text-[#000229]/80">~ {p.distanceKm.toLocaleString()} km</div>
-                      </div>
-                      <div className="bg-[#FFF7EE] rounded-xl p-3 border border-[#E67C24]/20">
-                        <div className="font-semibold text-[#E67C24]">Notable Milestones</div>
-                        <ul className="mt-2 text-[#000229]/80 list-disc list-inside">
-                          {p.milestones.map((m) => (
-                            <li key={m}>{m}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-
-                    {/* Gallery */}
-                    <div className="mt-4 grid grid-cols-2 gap-3">
-                      {p.images.map((src, idx) => (
-                        <img
-                          key={idx}
-                          src={src}
-                          alt={`Gallery ${p.period} ${idx + 1}`}
-                          loading="lazy"
-                          className="h-24 w-full object-cover rounded-xl border border-[#000229]/10 shadow-sm"
-                        />
-                      ))}
-                    </div>
-
-                    {/* Optional Route Map */}
-                    {p.mapEmbedUrl && (
-                      <details className="mt-4">
-                        <summary className="cursor-pointer select-none text-[#000229]">
-                          Show Route Map
-                        </summary>
-                        <div className="mt-2">
-                          <iframe
-                            title={`Route map ${p.period}`}
-                            aria-label={`Route map ${p.period}`}
-                            src={p.mapEmbedUrl}
-                            loading="lazy"
-                            className="w-full h-56 rounded-xl border"
-                          />
-                        </div>
-                      </details>
-                    )}
-
-                    <div className="mt-4 flex flex-wrap items-center gap-2">
-                      <button
-                        className="px-4 py-2 rounded-full bg-[#000229] text-white hover:bg-[#000229]/90"
-                        onClick={() => setPinnedIndex(pinnedIndex === i ? null : i)}
-                      >
-                        {pinnedIndex === i ? "Unpin" : "Know More"}
-                      </button>
-                      <Link
-                        href={`/mahapadayatra/overview#${p.id}`}
-                        className="px-4 py-2 rounded-full border border-[#E67C24] text-[#E67C24] hover:bg-[#FFF2E7]"
-                        aria-label={`Navigate to detailed page for ${p.period}`}
-                      >
-                        Navigate to details
-                      </Link>
-                    </div>
-                  </div>
+          {/* Stats Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
+            {currentSection.stats.map((stat, index) => (
+              <div
+                key={index}
+                className="bg-gradient-to-br from-brand-cream to-brand-gold/20 rounded-lg sm:rounded-xl p-3 sm:p-4 text-center border border-brand-gold/30"
+              >
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-brand-maroon mb-1">
+                  {stat.value}
                 </div>
-              );
-            })}
+                <div className="text-xs sm:text-sm text-gray-700">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Districts List */}
+          <div className="mb-4">
+            <h4 className="font-semibold text-brand-maroon mb-3 text-base sm:text-lg">జిల్లాలు / ప్రాంతాలు:</h4>
+            <div className="flex flex-wrap gap-2">
+              {currentSection.districts.map((district, idx) => (
+                <span
+                  key={idx}
+                  className="px-2 sm:px-3 py-1 sm:py-1.5 bg-brand-cream text-brand-maroon rounded-full text-xs sm:text-sm font-medium border border-brand-gold/30"
+                >
+                  {district}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Footer note */}
-      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 pb-16 text-center">
-        <p className="text-[#000229]/70">
-          Visuals use placeholders; maps and numbers are indicative for design. Provide assets to replace them for production.
-        </p>
+        {/* Summary Stats */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 mb-8">
+          <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 border border-brand-gold/20 text-center">
+            <div className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-brand-maroon mb-2">8,500+</div>
+            <div className="text-xs sm:text-sm text-gray-700">గ్రామాలు</div>
+            <div className="text-xs text-gray-500 mt-1">Villages</div>
+          </div>
+          <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 border border-brand-gold/20 text-center">
+            <div className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-brand-maroon mb-2">35,000+</div>
+            <div className="text-xs sm:text-sm text-gray-700">దేవాలయాలు</div>
+            <div className="text-xs text-gray-500 mt-1">Temples</div>
+          </div>
+          <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 border border-brand-gold/20 text-center">
+            <div className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-brand-maroon mb-2">10,000+</div>
+            <div className="text-xs sm:text-sm text-gray-700">కి.మీ.</div>
+            <div className="text-xs text-gray-500 mt-1">Kilometers</div>
+          </div>
+          <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 border border-brand-gold/20 text-center">
+            <div className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-brand-maroon mb-2">2007+</div>
+            <div className="text-xs sm:text-sm text-gray-700">సంవత్సరాలు</div>
+            <div className="text-xs text-gray-500 mt-1">Years</div>
+          </div>
+        </div>
+
+        {/* Navigation Links */}
+        <div className="text-center space-y-4 sm:space-x-4 sm:space-y-0 flex flex-col sm:flex-row justify-center">
+          <Link
+            href="/mahapadayatra/overview"
+            className="inline-block bg-gradient-to-r from-brand-maroon to-orange-800 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:from-brand-maroon/90 hover:to-orange-800/90 transition-colors text-sm sm:text-base"
+          >
+            Back to Overview
+          </Link>
+          <Link
+            href="/mahapadayatra/stories"
+            className="inline-block bg-gradient-to-r from-brand-maroon to-orange-800 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:from-brand-maroon/90 hover:to-orange-800/90 transition-colors text-sm sm:text-base"
+          >
+            Read Stories
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -1,137 +1,182 @@
 'use client';
 import { BackNav } from '@/components/BackNav';
+import { HeroBanner } from '@/components';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+
 export default function TempleRenovationProjectsPage() {
+  const projects = [
+    {
+      id: 'bhuvaneshwari-temple',
+      title: 'శ్రీ భువనేశ్వరి మాత ఆలయము',
+      subtitle: 'Sri Bhuvaneshwari Math Temple',
+      items: [
+        'ఆలయం',
+        'ధ్యాన మందిరము'
+      ],
+      description: 'మహామాయ ఐన శ్రీ భువనేశ్వరి మాత విశ్వమంతటికి మహారాజ్ఞ్ని, హ్రీంకార బీజరూపిణి. పరమ శాంతి స్వరూపిణి. శ్రీ భువనేశ్వరి విద్య దశ మహావిద్యలలో నాల్గవది. అట్టి మాత ఆలయము ఆగమ శాస్త్రానుగుణంగా స్థపతుల స్థాపత్యంతో కృష్ణశిలతో నిర్మిస్తున్నాము.',
+      cost: 'రూ. 3.00 కోట్లు'
+    },
+    {
+      id: 'chidananda-ashramam',
+      title: 'శ్రీ చిదానంద ఆశ్రమము',
+      subtitle: 'Sri Chidananda Ashramam',
+      items: [
+        'పీఠాధిపతి నివాసము',
+        'యతి సదనము',
+        'పురోహితుల నివాసము',
+        'సిబ్బంది నివాసాలు',
+        'సమావేశ మందిరము',
+        'యాత్రికుల వసతి',
+        'శ్రీ అన్నపూర్ణ నిలయము',
+        'షోడశ స్తంభ యాగశాల',
+        'కార్యాలయం, గ్రంధాలయము',
+        'భోజనశాల, వంటగది',
+        'యాత్రికుల నివాసములు - 20',
+        'సభా మందిరము'
+      ],
+      description: 'ఘనమైన చరిత్ర కలిగిన మన భువనేశ్వరీ పీఠంలో ప్రస్తుతం క్షీణదశలో ఉన్న భవనాలకు కాలానుగుణమైన మార్పులు చేయడం ద్వారా రాబోయే కాలంలో మరెన్నో తరాలకు ఆధ్యాత్మిక కేంద్రంగా పీఠం తన సేవలను కొనసాగించగలుగుతుంది.'
+    }
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-yellow-50">
+    <div className="min-h-screen bg-gradient-to-br from-brand-cream via-white to-brand-gold/10">
+      <HeroBanner
+        title="నూతన సముదాయములో ముఖ్య నిర్మాణాలు"
+        subtitle="Major Construction Projects in the New Complex"
+        height="medium"
+      />
       <BackNav />
       
-      <div className="max-w-6xl mx-auto px-4 py-16">
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-orange-600 mb-6">Renovation Projects</h1>
-          <p className="text-xl text-orange-600/80 max-w-3xl mx-auto">
-            Detailed information about our ongoing and completed temple renovation projects
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 md:py-16">
+        {/* Introduction */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-6 sm:p-8 mb-8 border border-brand-gold/20"
+        >
+          <div className="prose max-w-none text-black text-sm sm:text-base md:text-lg leading-relaxed">
+            <p className="mb-4">
+              మహామాయ ఐన శ్రీ భువనేశ్వరి మాత విశ్వమంతటికి మహారాజ్ఞ్ని, హ్రీంకార బీజరూపిణి. పరమ శాంతి స్వరూపిణి. శ్రీ భువనేశ్వరి విద్య దశ మహావిద్యలలో నాల్గవది. అట్టి మాత ఆలయము ఆగమ శాస్త్రానుగుణంగా స్థపతుల స్థాపత్యంతో కృష్ణశిలతో నిర్మిస్తున్నాము. దేవాలయ పవిత్రత, శాశ్వతత్వములను దృష్టిలో ఉంచుకొని ఈ విధముగా నిర్మించతలపెట్టినాము.
+            </p>
+            <p className="mb-4">
+              అమ్మవారి మూలవిరాట్టు శక్తి పంచాయతనంతో ప్రతిష్ఠితమవుతుంది. విశేషంగా ఇక్కడ ప్రతిష్టించబడిన 17 ఆవరణలు, 367 శివలింగాలతో కూడిన మహిమాన్విత ఋతురసాగ్ని రుద్రమండలమును కూడా కృష్ణశిలతో పునఃనిర్మించి తిరిగి 367గురు దంపతులచేత 367 బాణ లింగాలు పునఃప్రతిష్టింప చేయబడును. అలాగే నిరంతరం అన్నదానం చేయుటకు, శాశ్వతమైన అన్నపూర్ణ పథకం నిర్వహించుటకు అన్నపూర్ణ నిలయం, వంటగది, వంట సామాగ్రి సమకూర్చుకొనవలెను.
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Projects Grid */}
+        <div className="space-y-8">
+          {projects.map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-6 sm:p-8 border border-brand-gold/20"
+            >
+              <div className="mb-6">
+                <h2 className="text-2xl sm:text-3xl font-bold text-brand-maroon mb-2">
+                  {project.title}
+                </h2>
+                <p className="text-lg text-brand-maroon/80 mb-4">{project.subtitle}</p>
+                {project.cost && (
+                  <div className="inline-block bg-gradient-to-r from-brand-maroon to-orange-800 text-brand-gold px-6 py-2 rounded-full font-bold text-sm sm:text-base shadow-lg">
+                    అంచనా: {project.cost}
+                  </div>
+                )}
+              </div>
+
+              {project.description && (
+                <p className="text-sm sm:text-base text-gray-700 mb-6 leading-relaxed">
+                  {project.description}
+                </p>
+              )}
+
+              <div className="bg-gradient-to-br from-brand-cream to-brand-gold/20 rounded-xl p-6 border border-brand-gold/30">
+                <h3 className="text-xl font-semibold text-brand-maroon mb-4">
+                  నిర్మాణ అంశాలు:
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+                  {project.items.map((item, itemIndex) => (
+                    <div
+                      key={itemIndex}
+                      className="flex items-start bg-white rounded-lg p-3 sm:p-4 border border-brand-gold/20 shadow-sm"
+                    >
+                      <span className="text-brand-maroon mr-2 font-bold text-lg">•</span>
+                      <span className="text-sm sm:text-base text-gray-700 flex-1">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Additional Information */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="bg-gradient-to-r from-brand-maroon/10 to-orange-800/10 rounded-xl sm:rounded-2xl p-6 sm:p-8 mt-8 border border-brand-gold/20"
+        >
+          <h3 className="text-xl sm:text-2xl font-bold text-brand-maroon mb-4">
+            ప్రత్యేక లక్షణాలు
+          </h3>
+          <ul className="space-y-3 text-sm sm:text-base text-gray-700">
+            <li className="flex items-start">
+              <span className="text-brand-maroon mr-2 font-bold">✓</span>
+              <span>కృష్ణశిలతో నిర్మాణం - శాశ్వతత్వం మరియు పవిత్రత కొరకు</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-brand-maroon mr-2 font-bold">✓</span>
+              <span>ఆగమ శాస్త్రానుగుణంగా స్థపతుల స్థాపత్యంతో నిర్మాణం</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-brand-maroon mr-2 font-bold">✓</span>
+              <span>17 ఆవరణలు, 367 శివలింగాలతో కూడిన ఋతురసాగ్ని రుద్రమండలం</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-brand-maroon mr-2 font-bold">✓</span>
+              <span>శాశ్వతమైన అన్నపూర్ణ పథకం - నిరంతర అన్నదానం</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-brand-maroon mr-2 font-bold">✓</span>
+              <span>యాత్రికులకు 20 నివాసములు - సౌకర్యవంతమైన వసతి</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-brand-maroon mr-2 font-bold">✓</span>
+              <span>షోడశ స్తంభ యాగశాల - ధార్మిక కార్యక్రమాల కొరకు</span>
+            </li>
+          </ul>
+        </motion.div>
+
+        {/* Call to Action */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="text-center mt-12"
+        >
+          <p className="text-lg text-gray-700 mb-6">
+            ఈ మహత్ కార్యంలో పాల్గొనవలసిందిగా అందరినీ ఆహ్వానిస్తున్నాము. ధర్మరక్షణ కోసం పని చేస్తున్న ఆచార్యులు, పీఠాలకు మనమందరం ఆర్థిక సహాయ సహకారాలు అందించడం ద్వారా మన జీవితం సార్థకత పొందగలదు.
           </p>
-        </div>
-
-        <div className="space-y-12">
-          {/* Ongoing Projects */}
-          <div className="bg-white rounded-xl shadow-lg p-8 border border-orange-200">
-            <div className="flex items-center mb-6">
-              <div className="w-3 h-3 bg-green-500 rounded-full mr-3 animate-pulse"></div>
-              <h2 className="text-2xl font-semibold text-orange-600">Ongoing Projects</h2>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="border border-orange-200 rounded-lg p-6">
-                <h3 className="text-xl font-semibold text-orange-600 mb-3">Main Sanctum Restoration</h3>
-                <p className="text-gray-700 mb-4">Complete restoration of the main deity chamber using traditional materials and techniques.</p>
-                <div className="mb-4">
-                  <div className="flex justify-between text-sm text-gray-600 mb-1">
-                    <span>Progress</span>
-                    <span>75%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div className="bg-orange-600 h-2 rounded-full" style={{width: '75%'}}></div>
-                  </div>
-                </div>
-                <div className="text-sm text-gray-600">
-                  <p><strong>Estimated Completion:</strong> Q2 2024</p>
-                  <p><strong>Budget:</strong> ₹15,00,000</p>
-                </div>
-              </div>
-
-              <div className="border border-orange-200 rounded-lg p-6">
-                <h3 className="text-xl font-semibold text-orange-600 mb-3">Roof Repair & Waterproofing</h3>
-                <p className="text-gray-700 mb-4">Traditional tile roof restoration with modern waterproofing techniques.</p>
-                <div className="mb-4">
-                  <div className="flex justify-between text-sm text-gray-600 mb-1">
-                    <span>Progress</span>
-                    <span>45%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div className="bg-orange-600 h-2 rounded-full" style={{width: '45%'}}></div>
-                  </div>
-                </div>
-                <div className="text-sm text-gray-600">
-                  <p><strong>Estimated Completion:</strong> Q1 2024</p>
-                  <p><strong>Budget:</strong> ₹8,50,000</p>
-                </div>
-              </div>
-            </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/contribute/temple-renovation"
+              className="inline-block bg-brand-maroon text-brand-gold px-8 py-4 rounded-lg font-semibold hover:bg-brand-maroon/90 transition-colors text-sm sm:text-base"
+            >
+              ఆలయ పునరుద్ధరణకు మద్దతు ఇవ్వండి
+            </Link>
+            <Link
+              href="/temple-renovation/progress"
+              className="inline-block bg-brand-cream text-brand-maroon px-8 py-4 rounded-lg font-semibold border-2 border-brand-maroon hover:bg-brand-gold/20 transition-colors text-sm sm:text-base"
+            >
+              నిర్మాణ పురోగతి చూడండి
+            </Link>
           </div>
-
-          {/* Planned Projects */}
-          <div className="bg-white rounded-xl shadow-lg p-8 border border-orange-200">
-            <div className="flex items-center mb-6">
-              <div className="w-3 h-3 bg-yellow-500 rounded-full mr-3"></div>
-              <h2 className="text-2xl font-semibold text-orange-600">Planned Projects</h2>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="border border-orange-200 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-orange-600 mb-3">Mural Conservation</h3>
-                <p className="text-gray-700 mb-4">Preservation of ancient wall paintings and frescoes.</p>
-                <div className="text-sm text-gray-600">
-                  <p><strong>Start Date:</strong> March 2024</p>
-                  <p><strong>Budget:</strong> ₹12,00,000</p>
-                </div>
-              </div>
-
-              <div className="border border-orange-200 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-orange-600 mb-3">Floor Restoration</h3>
-                <p className="text-gray-700 mb-4">Traditional stone flooring repair and replacement.</p>
-                <div className="text-sm text-gray-600">
-                  <p><strong>Start Date:</strong> June 2024</p>
-                  <p><strong>Budget:</strong> ₹6,50,000</p>
-                </div>
-              </div>
-
-              <div className="border border-orange-200 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-orange-600 mb-3">Pillar Restoration</h3>
-                <p className="text-gray-700 mb-4">Structural reinforcement of ancient stone pillars.</p>
-                <div className="text-sm text-gray-600">
-                  <p><strong>Start Date:</strong> September 2024</p>
-                  <p><strong>Budget:</strong> ₹9,00,000</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Completed Projects */}
-          <div className="bg-white rounded-xl shadow-lg p-8 border border-orange-200">
-            <div className="flex items-center mb-6">
-              <div className="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
-              <h2 className="text-2xl font-semibold text-orange-600">Completed Projects</h2>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="border border-green-200 rounded-lg p-6 bg-green-50">
-                <h3 className="text-lg font-semibold text-green-700 mb-3">✅ Electrical Modernization</h3>
-                <p className="text-gray-700 mb-4">Complete electrical system upgrade with safety features.</p>
-                <div className="text-sm text-gray-600">
-                  <p><strong>Completed:</strong> December 2023</p>
-                  <p><strong>Total Cost:</strong> ₹4,25,000</p>
-                </div>
-              </div>
-
-              <div className="border border-green-200 rounded-lg p-6 bg-green-50">
-                <h3 className="text-lg font-semibold text-green-700 mb-3">✅ Water Supply System</h3>
-                <p className="text-gray-700 mb-4">New water supply and drainage system installation.</p>
-                <div className="text-sm text-gray-600">
-                  <p><strong>Completed:</strong> October 2023</p>
-                  <p><strong>Total Cost:</strong> ₹3,75,000</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="text-center mt-12">
-          <Link href="/temple-renovation/donate" className="inline-block bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-orange-700 transition-colors">
-            Support Our Projects
-          </Link>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
