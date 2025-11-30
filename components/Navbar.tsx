@@ -14,7 +14,7 @@ export function Navbar({ className = '' }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className={`bg-[#F07E2D] text-[#FFFFF0] sticky top-0 z-50 shadow-lg ${className}`}>
+    <header className={`bg-[#800000] text-[#FFFFF0] sticky top-0 z-50 shadow-lg ${className}`}>
       <div className="mx-auto max-w-7xl px-6">
         {/* Top Row */}
         <div className="flex items-center justify-between h-16">
