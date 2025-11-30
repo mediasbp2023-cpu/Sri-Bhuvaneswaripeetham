@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-  <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}>
+  <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-black min-h-screen`}>
         <Navbar />
         <BackNav />
         <main className="mx-auto max-w-5xl px-4 lg:px-8">

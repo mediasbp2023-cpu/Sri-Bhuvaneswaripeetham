@@ -14,7 +14,7 @@ export function Navbar({ className = '' }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className={`bg-[#800000] text-[#FFFFF0] sticky top-0 z-50 shadow-lg ${className}`}>
+    <header className={`bg-[#F07E2D] text-[#FFFFF0] sticky top-0 z-50 shadow-lg ${className}`}>
       <div className="mx-auto max-w-7xl px-6">
         {/* Top Row */}
         <div className="flex items-center justify-between h-16">
@@ -63,7 +63,7 @@ export function Navbar({ className = '' }: NavbarProps) {
         </div>
 
         {/* Bottom Row */}
-        <div className="hidden lg:flex items-center justify-center h-12 bg-[#800000]/50 rounded-t-lg">
+        <div className="hidden lg:flex items-center justify-center h-12 bg-[#F07E2D]/50 rounded-t-lg">
           <nav className="flex gap-8 items-center text-base">
             {navLinks.bottomRow.map((link) => (
               <div key={link.href} className="relative group">
@@ -86,7 +86,7 @@ export function Navbar({ className = '' }: NavbarProps) {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-[#800000]/95 backdrop-blur-sm absolute top-full left-0 w-full">
+        <div className="lg:hidden bg-[#F07E2D]/95 backdrop-blur-sm absolute top-full left-0 w-full">
           <nav className="flex flex-col p-4 gap-2">
             {[...navLinks.topRow, ...navLinks.bottomRow].map((link) => (
               <div key={link.href}>
@@ -98,12 +98,12 @@ export function Navbar({ className = '' }: NavbarProps) {
                   {link.label}
                 </Link>
                 {link.submenu && (
-                  <div className="pl-4 pt-2">
+                  <div className="pl-4 pt-2 bg-[#FDF3E7] rounded-md border border-[#F07E2D]/20">
                     {link.submenu.map((sublink) => (
                       <Link
                         key={sublink.href}
                         href={sublink.href}
-                        className="block py-1.5 px-3 text-sm rounded-md hover:bg-white/10 transition-colors"
+                        className="block py-1.5 px-3 text-sm text-[#F07E2D] rounded-md hover:bg-[#F07E2D]/10 transition-colors"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         {sublink.label}

@@ -7,12 +7,12 @@ export interface SubMenuProps {
 
 export function SubMenu({ items }: SubMenuProps) {
     return (
-        <div className="absolute top-full left-0 bg-[#FFFFF0] shadow-lg rounded-md py-2 z-20 min-w-[200px] border border-[#FFD700]/20">
+        <div className="absolute top-full left-0 bg-[#FDF3E7] shadow-lg rounded-md py-2 z-20 min-w-[200px] border border-[#F07E2D]/20">
             {items.map((item) => (
                 <Link
                     key={item.href}
                     href={item.href}
-                    className="block px-4 py-2 text-sm text-[#800000] hover:bg-[#FFD700]/10 transition-colors duration-200"
+                    className="block px-4 py-2 text-sm text-[#F07E2D] hover:bg-[#F07E2D]/10 transition-colors duration-200"
                 >
                     {item.label}
                 </Link>
