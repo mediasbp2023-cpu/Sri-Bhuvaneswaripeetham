@@ -143,7 +143,7 @@ export default function MahapadayatraTimelinePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-[#FFF7EE] to-[#E67C24]/10">
+    <div className="min-h-screen bg-gradient-to-b from-white via-brand-cream to-brand-orange/10">
       <BackNav />
 
       <HeroBanner
@@ -160,13 +160,13 @@ export default function MahapadayatraTimelinePage() {
           <div className="flex items-center gap-3">
             <input
               aria-label="Search by year or location"
-              className="w-full md:w-80 border border-[#E67C24]/40 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#E67C24] bg-white/90"
+              className="w-full md:w-80 border border-brand-orange/40 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-orange bg-white/90"
               placeholder="Search by year or location"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
             <button
-              className="px-4 py-2 rounded-full bg-[#000229] text-white hover:bg-[#000229]/90 transition"
+              className="px-4 py-2 rounded-full bg-brand-maroon text-white hover:bg-brand-maroon/90 transition"
               onClick={() => setQuery("")}
               aria-label="Clear search"
             >
@@ -176,7 +176,7 @@ export default function MahapadayatraTimelinePage() {
 
           <div className="flex items-center gap-3">
             <button
-              className="px-4 py-2 rounded-full bg-[#E67C24] text-white hover:bg-[#E67C24]/90 transition"
+              className="px-4 py-2 rounded-full bg-brand-orange text-white hover:bg-brand-orange/90 transition"
               onClick={() => {
                 if (pinnedIndex !== null) scrollToPeriod(DATA[pinnedIndex].id);
               }}
@@ -184,7 +184,7 @@ export default function MahapadayatraTimelinePage() {
               Jump to pinned
             </button>
             <button
-              className="px-4 py-2 rounded-full border border-[#000229] text-[#000229] hover:bg-[#000229] hover:text-white transition"
+              className="px-4 py-2 rounded-full border border-brand-maroon text-brand-maroon hover:bg-brand-maroon hover:text-white transition"
               onClick={() => {
                 if (navigator.share) {
                   navigator.share({
@@ -206,7 +206,7 @@ export default function MahapadayatraTimelinePage() {
               Share
             </button>
             <button
-              className="px-4 py-2 rounded-full bg-white border border-[#E67C24] text-[#E67C24] hover:bg-[#FFF2E7] transition"
+              className="px-4 py-2 rounded-full bg-white border border-brand-orange text-brand-orange hover:bg-brand-cream transition"
               onClick={() => window.print()}
               aria-label="Download brochure (prints page)"
             >
@@ -221,17 +221,17 @@ export default function MahapadayatraTimelinePage() {
         ref={countersRef}
         className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mt-8 grid grid-cols-1 md:grid-cols-3 gap-6"
       >
-        <div className="bg-white rounded-2xl shadow p-6 border border-[#E67C24]/30 text-center">
-          <div className="text-4xl font-extrabold text-[#E67C24]" data-count={38000}>0</div>
-          <div className="text-[#000229] mt-1">Total kilometers walked</div>
+        <div className="bg-white rounded-2xl shadow p-6 border border-brand-orange/30 text-center">
+          <div className="text-4xl font-extrabold text-brand-orange" data-count={38000}>0</div>
+          <div className="text-brand-maroon mt-1">Total kilometers walked</div>
         </div>
-        <div className="bg-white rounded-2xl shadow p-6 border border-[#E67C24]/30 text-center">
-          <div className="text-4xl font-extrabold text-[#E67C24]" data-count={21}>0</div>
-          <div className="text-[#000229] mt-1">States/regions visited</div>
+        <div className="bg-white rounded-2xl shadow p-6 border border-brand-orange/30 text-center">
+          <div className="text-4xl font-extrabold text-brand-orange" data-count={21}>0</div>
+          <div className="text-brand-maroon mt-1">States/regions visited</div>
         </div>
-        <div className="bg-white rounded-2xl shadow p-6 border border-[#E67C24]/30 text-center">
-          <div className="text-4xl font-extrabold text-[#E67C24]" data-count={18}>0</div>
-          <div className="text-[#000229] mt-1">Years of journey</div>
+        <div className="bg-white rounded-2xl shadow p-6 border border-brand-orange/30 text-center">
+          <div className="text-4xl font-extrabold text-brand-orange" data-count={18}>0</div>
+          <div className="text-brand-maroon mt-1">Years of journey</div>
         </div>
       </section>
 
@@ -248,21 +248,21 @@ export default function MahapadayatraTimelinePage() {
                   ref={(node) => {
                     yearRefs.current[p.id] = node;
                   }}
-                  className="relative snap-start group bg-white/95 backdrop-blur rounded-2xl shadow-xl border border-[#000229]/10 p-4"
+                  className="relative snap-start group bg-white/95 backdrop-blur rounded-2xl shadow-xl border border-brand-maroon/10 p-4"
                   onMouseEnter={() => setHoverIndex(i)}
                   onMouseLeave={() => setHoverIndex(null)}
                 >
                   <header className="flex items-center justify-between">
-                    <h3 className="text-xl font-bold text-[#000229]">{p.period}</h3>
+                    <h3 className="text-xl font-bold text-brand-maroon">{p.period}</h3>
                     <div className="flex items-center gap-2">
                       <button
-                        className="text-xs px-3 py-1 rounded-full bg-[#E67C24] text-white hover:bg-[#E67C24]/90"
+                        className="text-xs px-3 py-1 rounded-full bg-brand-orange text-white hover:bg-brand-orange/90"
                         onClick={() => setPinnedIndex(i)}
                       >
                         Pin
                       </button>
                       <button
-                        className="text-xs px-3 py-1 rounded-full border border-[#000229] text-[#000229] hover:bg-[#000229] hover:text-white"
+                        className="text-xs px-3 py-1 rounded-full border border-brand-maroon text-brand-maroon hover:bg-brand-maroon hover:text-white"
                         onClick={() => scrollToPeriod(p.id)}
                       >
                         Focus
@@ -272,11 +272,11 @@ export default function MahapadayatraTimelinePage() {
 
                   {/* Vertical marker inside the column */}
                   <div className="relative my-4 h-56 flex justify-center">
-                    <div className="w-[3px] h-full bg-gradient-to-b from-[#E67C24] via-[#000229] to-[#E67C24]" />
+                    <div className="w-[3px] h-full bg-gradient-to-b from-brand-orange via-brand-maroon to-brand-orange" />
                     <button
                       className={`absolute top-1/2 -translate-y-1/2 w-6 h-6 rounded-full border-4 ${
-                        active ? "bg-[#E67C24] border-[#000229]" : "bg-[#000229] border-white"
-                      } shadow focus:outline-none focus:ring-4 focus:ring-[#E67C24]/50`}
+                        active ? "bg-brand-orange border-brand-maroon" : "bg-brand-maroon border-white"
+                      } shadow focus:outline-none focus:ring-4 focus:ring-brand-orange/50`}
                       onClick={() => setPinnedIndex(pinnedIndex === i ? null : i)}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
@@ -294,24 +294,24 @@ export default function MahapadayatraTimelinePage() {
                       active ? "opacity-100 max-h-[1000px]" : "opacity-0 max-h-0"
                     } overflow-hidden`}
                   >
-                    <p className="text-[#000229]/80">{p.overview}</p>
+                    <p className="text-black">{p.overview}</p>
 
                     <div className="mt-4 grid grid-cols-1 gap-3">
-                      <div className="bg-[#FFF7EE] rounded-xl p-3 border border-[#E67C24]/20">
-                        <div className="font-semibold text-[#E67C24]">Key Locations</div>
-                        <ul className="mt-2 text-[#000229]/80 list-disc list-inside">
+                      <div className="bg-brand-cream rounded-xl p-3 border border-brand-orange/20">
+                        <div className="font-semibold text-brand-orange">Key Locations</div>
+                        <ul className="mt-2 text-brand-maroon/80 list-disc list-inside">
                           {p.locations.map((l) => (
                             <li key={l}>{l}</li>
                           ))}
                         </ul>
                       </div>
-                      <div className="bg-[#FFF7EE] rounded-xl p-3 border border-[#E67C24]/20">
-                        <div className="font-semibold text-[#E67C24]">Distance Covered</div>
-                        <div className="mt-1 text-[#000229]/80">~ {p.distanceKm.toLocaleString()} km</div>
+                      <div className="bg-brand-cream rounded-xl p-3 border border-brand-orange/20">
+                        <div className="font-semibold text-brand-orange">Distance Covered</div>
+                        <div className="mt-1 text-brand-maroon/80">~ {p.distanceKm.toLocaleString()} km</div>
                       </div>
-                      <div className="bg-[#FFF7EE] rounded-xl p-3 border border-[#E67C24]/20">
-                        <div className="font-semibold text-[#E67C24]">Notable Milestones</div>
-                        <ul className="mt-2 text-[#000229]/80 list-disc list-inside">
+                      <div className="bg-brand-cream rounded-xl p-3 border border-brand-orange/20">
+                        <div className="font-semibold text-brand-orange">Notable Milestones</div>
+                        <ul className="mt-2 text-brand-maroon/80 list-disc list-inside">
                           {p.milestones.map((m) => (
                             <li key={m}>{m}</li>
                           ))}
@@ -327,7 +327,7 @@ export default function MahapadayatraTimelinePage() {
                           src={src}
                           alt={`Gallery ${p.period} ${idx + 1}`}
                           loading="lazy"
-                          className="h-24 w-full object-cover rounded-xl border border-[#000229]/10 shadow-sm"
+                          className="h-24 w-full object-cover rounded-xl border border-brand-maroon/10 shadow-sm"
                         />
                       ))}
                     </div>
@@ -335,7 +335,7 @@ export default function MahapadayatraTimelinePage() {
                     {/* Optional Route Map */}
                     {p.mapEmbedUrl && (
                       <details className="mt-4">
-                        <summary className="cursor-pointer select-none text-[#000229]">
+                        <summary className="cursor-pointer select-none text-brand-maroon">
                           Show Route Map
                         </summary>
                         <div className="mt-2">
@@ -352,14 +352,14 @@ export default function MahapadayatraTimelinePage() {
 
                     <div className="mt-4 flex flex-wrap items-center gap-2">
                       <button
-                        className="px-4 py-2 rounded-full bg-[#000229] text-white hover:bg-[#000229]/90"
+                        className="px-4 py-2 rounded-full bg-brand-maroon text-white hover:bg-brand-maroon/90"
                         onClick={() => setPinnedIndex(pinnedIndex === i ? null : i)}
                       >
                         {pinnedIndex === i ? "Unpin" : "Know More"}
                       </button>
                       <Link
                         href={`/mahapadayatra/overview#${p.id}`}
-                        className="px-4 py-2 rounded-full border border-[#E67C24] text-[#E67C24] hover:bg-[#FFF2E7]"
+                        className="px-4 py-2 rounded-full border border-brand-orange text-brand-orange hover:bg-brand-cream"
                         aria-label={`Navigate to detailed page for ${p.period}`}
                       >
                         Navigate to details
@@ -375,7 +375,7 @@ export default function MahapadayatraTimelinePage() {
 
       {/* Footer note */}
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 pb-16 text-center">
-        <p className="text-[#000229]/70">
+        <p className="text-brand-maroon/70">
           Visuals use placeholders; maps and numbers are indicative for design. Provide assets to replace them for production.
         </p>
       </div>

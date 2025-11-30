@@ -78,14 +78,12 @@ export default function MahapadayatraPage() {
   ];
 
   return (
-  <div className="bg-white min-h-screen">
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-orange-50 via-white to-white py-16 px-4">
-        <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl font-bold mb-4 text-orange-600">Mahapadayatra</h1>
-          <p className="text-xl text-orange-600/80">A spiritual journey across India, spreading wisdom and serving communities.</p>
-        </div>
-      </div>
+  <div className="min-h-screen bg-gradient-to-br from-brand-cream via-white to-brand-gold/10">
+      <HeroBanner
+        title="Mahapadayatra"
+        description="A spiritual journey across India, spreading wisdom and serving communities."
+        height="medium"
+      />
 
       {/* Timeline Section */}
       <section className="my-8">
@@ -94,7 +92,7 @@ export default function MahapadayatraPage() {
 
       {/* Additional Details */}
       <div className="max-w-6xl mx-auto px-4 py-12">
-        <h2 className="text-2xl font-semibold mb-6 text-orange-600">About the Journey</h2>
+        <h2 className="text-2xl font-semibold mb-6 text-brand-maroon">About the Journey</h2>
         <div className="prose max-w-none">
           <p className="text-lg text-black mb-4">
             Since 2007, our spiritual journey has touched countless lives across India. 
@@ -111,13 +109,13 @@ export default function MahapadayatraPage() {
 
       {/* Stories Section */}
       <div className="max-w-6xl mx-auto px-4 py-12">
-        <h2 className="text-2xl font-semibold mb-6 text-orange-600">Padayatra Stories</h2>
+        <h2 className="text-2xl font-semibold mb-6 text-brand-maroon">Padayatra Stories</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {stories.map((s) => (
             <motion.article key={s.id} whileHover={{ y: -6 }} className="p-4 bg-white border rounded-lg shadow-sm">
               <h3 className="font-semibold mb-2">{s.title}</h3>
               <p className="text-black mb-4">{s.excerpt}</p>
-              <button onClick={() => setSelectedStory(s.id)} className="text-sm text-orange-600">Read more</button>
+              <button onClick={() => setSelectedStory(s.id)} className="text-sm text-brand-orange">Read more</button>
             </motion.article>
           ))}
         </div>
