@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatedTimeline } from '@/components';
+import { AnimatedTimeline, HeroBanner } from '@/components';
 import type { TimelineEvent } from '@/components/AnimatedTimeline';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
