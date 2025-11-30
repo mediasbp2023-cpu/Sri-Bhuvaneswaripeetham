@@ -49,12 +49,11 @@ export function HeroBanner({
       )}
 
       {overlay && (
-        // Brand-tinted overlay
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-orange/70 via-brand-gold/50 to-brand-orange/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-orange/70 via-brand-gold/40 to-brand-orange/30" />
       )}
 
       <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
-        <h1 className="text-4xl md:text-5xl font-bold text-brand-gold mb-4 relative z-10 drop-shadow-lg">
+        <h1 className="text-4xl md:text-5xl font-bold text-brand-maroon mb-4 relative z-10 drop-shadow-lg">
           {title}
         </h1>
         <div className="w-28 h-1 bg-gradient-to-r from-brand-gold via-brand-orange to-brand-gold rounded-full mb-4 relative z-10" aria-hidden />
