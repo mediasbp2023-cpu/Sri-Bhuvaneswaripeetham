@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { HeroBanner } from '@/components';
@@ -102,11 +102,55 @@ const getGuruContent = (guruId: string) => {
 };
 
 export default function GuruParamparaPage() {
-  // Set SKBS as default selected guru
-  const [selectedGuru, setSelectedGuru] = useState<string>('skbs');
-  const gurus = Object.values(guruData);
+  const gurus = useMemo(() => Object.values(guruData), []);
+  
+  // Get guru ID from URL hash or default to SKBS
+  const getGuruIdFromHash = () => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash.slice(1); // Remove the #
+      if (hash && guruData[hash]) {
+        return hash;
+      }
+    }
+    return 'skbs'; // Default to SKBS
+  };
+
+  const [selectedGuru, setSelectedGuru] = useState<string>(getGuruIdFromHash());
   const selectedGuruData = guruData[selectedGuru];
   const guruContent = getGuruContent(selectedGuru);
+
+  // Handle hash changes and scroll to content
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1);
+      if (hash && guruData[hash]) {
+        setSelectedGuru(hash);
+        // Scroll to content section after a short delay to allow render
+        setTimeout(() => {
+          const contentElement = document.getElementById('guru-content');
+          if (contentElement) {
+            const offset = 100; // Offset from top
+            const elementPosition = contentElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - offset;
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }, 300);
+      }
+    };
+
+    // Check hash on mount (after initial render)
+    if (typeof window !== 'undefined') {
+      // Small delay to ensure DOM is ready
+      setTimeout(handleHashChange, 100);
+    }
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   return (
     <div className="min-h-screen relative">
@@ -138,7 +182,18 @@ export default function GuruParamparaPage() {
                 return (
                   <button
                     key={guru.id}
-                    onClick={() => setSelectedGuru(guru.id)}
+                    onClick={() => {
+                      setSelectedGuru(guru.id);
+                      // Update URL hash without scrolling
+                      window.history.replaceState(null, '', `#${guru.id}`);
+                      // Scroll to content after a short delay
+                      setTimeout(() => {
+                        const contentElement = document.getElementById('guru-content');
+                        if (contentElement) {
+                          contentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                      }, 100);
+                    }}
                     className={`group flex flex-col items-center text-center transition-all ${
                       isSelected ? 'scale-110' : 'hover:scale-105'
                     }`}
@@ -194,6 +249,7 @@ export default function GuruParamparaPage() {
 
           {/* Dynamic Content Below - Changes based on selected guru */}
           <motion.div
+            id="guru-content"
             key={selectedGuru}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

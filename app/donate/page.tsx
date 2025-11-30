@@ -1,84 +1,61 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { HeroBanner } from "@/components";
 
-type Category = {
-  id: string;
-  label: string;
-  amounts: number[];
-};
-
-const categories: Category[] = [
-  { id: "temple-renovation", label: "Temple Renovation", amounts: [501, 1101, 5101] },
-  { id: "maha-paada-yatra", label: "Maha Paada Yatra", amounts: [251, 1001, 2501] },
-  { id: "arjita-seva", label: "Aarjita Seva / Pooja", amounts: [101, 501, 1001] },
-];
-
-const UPI_VPA = "sbpeetham@okaxis";
-const PAYEE_NAME = "Sri Bhuvaneswari Peetham";
+type Category = "temple" | "yatra" | "seva";
 
 export default function DonatePage() {
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [amount, setAmount] = useState<number | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<Category | "">("");
+  const [section, setSection] = useState<1 | 2 | 3 | 4>(1);
+  const [amount, setAmount] = useState<string>("");
   const [customAmount, setCustomAmount] = useState<string>("");
-  const [showQR, setShowQR] = useState(false);
-  const [paid, setPaid] = useState(false);
-  const [note, setNote] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [gothram, setGothram] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [address, setAddress] = useState("");
+  const [email, setEmail] = useState("");
+  const [poojaday, setPoojaday] = useState("");
+  const [pan, setPan] = useState("");
+  const [paymentRef, setPaymentRef] = useState("");
 
-  const effectiveAmount = useMemo(() => {
-    const ca = parseFloat(customAmount);
-    if (!isNaN(ca) && ca > 0) return Math.round(ca * 100) / 100;
-    return amount || null;
-  }, [customAmount, amount]);
-
-  const upiNote = useMemo(() => {
-    const base = `${selectedCategory ? selectedCategory.label : "Donation"} | ${name || "Devotee"} | ${phone || ""}`.trim();
-    if (note.trim().length) return `${base} | ${note.trim()}`;
-    return base;
-  }, [selectedCategory, name, phone, note]);
-
-  const upiLink = useMemo(() => {
-    if (!effectiveAmount) return "";
-    const params = new URLSearchParams({
-      pa: UPI_VPA,
-      pn: PAYEE_NAME,
-      am: String(effectiveAmount),
-      tn: upiNote,
-      cu: "INR",
-    });
-    return `upi://pay?${params.toString()}`;
-  }, [effectiveAmount, upiNote]);
-
-  const qrSrc = useMemo(() => {
-    if (!upiLink) return "";
-    const enc = encodeURIComponent(upiLink);
-    return `https://chart.googleapis.com/chart?cht=qr&chs=300x300&chld=M|0&chl=${enc}`;
-  }, [upiLink]);
-
-  const canProceed = Boolean(selectedCategory && name.trim() && phone.trim() && effectiveAmount);
-
-  const handlePay = () => {
-    try {
-      if (!upiLink) return;
-      window.location.href = upiLink;
-    } catch {}
+  const selectCategory = (type: Category) => {
+    setSelectedCategory(type);
+    setSection(1);
+    setAmount("");
+    setCustomAmount("");
   };
 
-  const handleConfirmPaid = async () => {
+  const showSection2 = () => {
+    if (!selectedCategory) return;
+    setSection(2);
+  };
+
+  const goToPayment = () => {
+    if (!fullName.trim() || !mobile.trim()) return;
+    setSection(3);
+  };
+
+  const finishDonation = async () => {
+    if (!paymentRef.trim()) return;
+    
+    const payload = {
+      category: selectedCategory === "temple" ? "Temple Renovation" : 
+                 selectedCategory === "yatra" ? "Maha Paada Yatra" : 
+                 "Aarjita Seva / Pooja",
+      name: fullName,
+      gothram,
+      phone: mobile,
+      address,
+      email,
+      poojaday,
+      pan,
+      amount: customAmount || amount,
+      paymentRef,
+      time: new Date().toISOString(),
+    };
+
     try {
-      const payload = {
-        category: selectedCategory?.label,
-        name,
-        phone,
-        email,
-        amount: effectiveAmount,
-        note: upiNote,
-        time: new Date().toISOString(),
-      };
       const logs = JSON.parse(localStorage.getItem("bp_donations") || "[]");
       logs.push(payload);
       localStorage.setItem("bp_donations", JSON.stringify(logs));
@@ -88,7 +65,13 @@ export default function DonatePage() {
         body: JSON.stringify(payload),
       }).catch(() => {});
     } catch {}
-    setPaid(true);
+
+    setSection(4);
+  };
+
+  const getEffectiveAmount = () => {
+    if (customAmount) return customAmount;
+    return amount;
   };
 
   return (
@@ -99,190 +82,423 @@ export default function DonatePage() {
         height="medium"
       />
 
-      <div className="max-w-6xl mx-auto px-4 py-10">
-        {!paid && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2 bg-white rounded-xl shadow-lg p-6 border border-brand-gold/20">
-              <h2 className="text-2xl font-bold text-brand-maroon mb-4">Choose Category</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-6">
-                {categories.map((cat) => (
-                  <button
-                    key={cat.id}
-                    onClick={() => {
-                      setSelectedCategory(cat);
-                      setAmount(null);
-                      setCustomAmount("");
-                    }}
-                    className={`px-4 py-3 rounded-lg font-semibold border transition-colors ${
-                      selectedCategory?.id === cat.id
-                        ? "bg-brand-maroon text-brand-gold border-brand-maroon"
-                        : "bg-brand-cream text-brand-maroon border-brand-gold/30 hover:bg-brand-gold/10"
-                    }`}
-                  >
-                    {cat.label}
-                  </button>
-                ))}
-              </div>
+      <div className="max-w-6xl mx-auto px-4 py-12">
+        <div className="bg-white rounded-xl shadow-lg p-8 border border-brand-gold/20">
+          <h2 className="text-3xl font-bold text-brand-maroon mb-6 text-center">
+            🙏 Donate to Sri Bhuvaneswari Peetham 🙏
+          </h2>
+          <p className="text-center text-black/70 mb-8">
+            Please choose the category you wish to donate to:
+          </p>
 
-              <h2 className="text-2xl font-bold text-brand-maroon mb-4">Your Details</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <input
-                  className="border rounded-lg px-4 py-3"
-                  placeholder="Full Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-                <input
-                  className="border rounded-lg px-4 py-3"
-                  placeholder="Mobile Number"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-                <input
-                  className="border rounded-lg px-4 py-3 md:col-span-2"
-                  placeholder="Email (optional)"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <input
-                  className="border rounded-lg px-4 py-3 md:col-span-2"
-                  placeholder="Additional note (optional)"
-                  value={note}
-                  onChange={(e) => setNote(e.target.value)}
-                />
-              </div>
-
-              <h2 className="text-2xl font-bold text-brand-maroon mb-4">Amount</h2>
-              <div className="flex flex-wrap gap-3 mb-4">
-                {(selectedCategory?.amounts || [251, 501, 1001]).map((amt) => (
-                  <button
-                    key={amt}
-                    onClick={() => setAmount(amt)}
-                    className={`px-4 py-2 rounded-full border text-sm font-semibold transition-colors ${
-                      amount === amt
-                        ? "bg-brand-maroon text-brand-gold border-brand-maroon"
-                        : "bg-brand-cream text-brand-maroon border-brand-gold/30 hover:bg-brand-gold/10"
-                    }`}
-                  >
-                    ₹{amt}
-                  </button>
-                ))}
-                <input
-                  className="border rounded-full px-4 py-2 text-sm"
-                  placeholder="Custom amount"
-                  value={customAmount}
-                  onChange={(e) => setCustomAmount(e.target.value)}
-                />
-              </div>
-
-              <div className="flex items-center gap-3">
+          {/* Category Selection */}
+          {section === 1 && (
+            <div className="space-y-6">
+              <div className="flex flex-wrap gap-4 justify-center">
                 <button
-                  disabled={!canProceed}
-                  onClick={handlePay}
+                  onClick={() => selectCategory("temple")}
                   className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
-                    canProceed
-                      ? "bg-brand-maroon text-brand-gold hover:bg-brand-maroon/90"
-                      : "bg-gray-200 text-gray-500 cursor-not-allowed"
+                    selectedCategory === "temple"
+                      ? "bg-brand-maroon text-brand-gold"
+                      : "bg-brand-cream text-brand-maroon border border-brand-gold/30 hover:bg-brand-gold/10"
                   }`}
                 >
-                  Pay via UPI
+                  Temple Renovation
                 </button>
                 <button
-                  disabled={!upiLink}
-                  onClick={() => setShowQR((v) => !v)}
-                  className={`px-6 py-3 rounded-lg font-semibold border transition-colors ${
-                    upiLink
-                      ? "bg-white text-brand-maroon border-brand-gold/40 hover:bg-brand-gold/10"
-                      : "bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed"
+                  onClick={() => selectCategory("yatra")}
+                  className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+                    selectedCategory === "yatra"
+                      ? "bg-brand-maroon text-brand-gold"
+                      : "bg-brand-cream text-brand-maroon border border-brand-gold/30 hover:bg-brand-gold/10"
                   }`}
                 >
-                  {showQR ? "Hide QR" : "Show QR"}
+                  Maha Paada Yatra
                 </button>
                 <button
-                  disabled={!upiLink}
-                  onClick={() => navigator.clipboard.writeText(upiLink)}
-                  className={`px-6 py-3 rounded-lg font-semibold border transition-colors ${
-                    upiLink
-                      ? "bg-white text-brand-maroon border-brand-gold/40 hover:bg-brand-gold/10"
-                      : "bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed"
+                  onClick={() => selectCategory("seva")}
+                  className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+                    selectedCategory === "seva"
+                      ? "bg-brand-maroon text-brand-gold"
+                      : "bg-brand-cream text-brand-maroon border border-brand-gold/30 hover:bg-brand-gold/10"
                   }`}
                 >
-                  Copy UPI Link
+                  Aarjita Seva / Pooja
                 </button>
               </div>
-            </div>
 
-            <div className="bg-white rounded-xl shadow-lg p-6 border border-brand-gold/20">
-              <h3 className="text-xl font-semibold text-brand-maroon mb-4">Payment Details</h3>
-              <div className="text-sm text-black/80 space-y-2 mb-4">
-                <p><strong>Account:</strong> {PAYEE_NAME}</p>
-                <p><strong>UPI ID:</strong> {UPI_VPA}</p>
-                <p><strong>Category:</strong> {selectedCategory ? selectedCategory.label : "Not selected"}</p>
-                <p><strong>Amount:</strong> {effectiveAmount ? `₹${effectiveAmount}` : "Not set"}</p>
-                <p><strong>Note:</strong> {upiNote}</p>
-              </div>
-              {showQR && qrSrc && (
-                <div className="flex flex-col items-center">
-                  <img src={qrSrc} alt="UPI QR" className="w-64 h-64" />
-                  <p className="mt-3 text-xs text-black/60">Scan with UPI app to pay</p>
+              {/* Section 1: Amount Selection */}
+              {selectedCategory && (
+                <div className="mt-8 bg-brand-cream/50 rounded-lg p-6 border border-brand-gold/20">
+                  {selectedCategory === "temple" && (
+                    <>
+                      <h3 className="text-xl font-semibold text-brand-maroon mb-4">
+                        Temple Renovation Donation
+                      </h3>
+                      <div className="space-y-3">
+                        <label className="flex items-center space-x-3 cursor-pointer">
+                          <input
+                            type="radio"
+                            name="amt"
+                            value="500000"
+                            checked={amount === "500000"}
+                            onChange={(e) => {
+                              setAmount(e.target.value);
+                              setCustomAmount("");
+                            }}
+                            className="w-5 h-5"
+                          />
+                          <span className="text-black">One Room – ₹5,00,000</span>
+                        </label>
+                        <label className="flex items-center space-x-3 cursor-pointer">
+                          <input
+                            type="radio"
+                            name="amt"
+                            value="250000"
+                            checked={amount === "250000"}
+                            onChange={(e) => {
+                              setAmount(e.target.value);
+                              setCustomAmount("");
+                            }}
+                            className="w-5 h-5"
+                          />
+                          <span className="text-black">100 SqFt – ₹2,50,000</span>
+                        </label>
+                        <label className="flex items-center space-x-3 cursor-pointer">
+                          <input
+                            type="radio"
+                            name="amt"
+                            value="125000"
+                            checked={amount === "125000"}
+                            onChange={(e) => {
+                              setAmount(e.target.value);
+                              setCustomAmount("");
+                            }}
+                            className="w-5 h-5"
+                          />
+                          <span className="text-black">50 SqFt – ₹1,25,000</span>
+                        </label>
+                        <label className="flex items-center space-x-3 cursor-pointer">
+                          <input
+                            type="radio"
+                            name="amt"
+                            value="custom"
+                            checked={amount === "custom"}
+                            onChange={(e) => {
+                              setAmount(e.target.value);
+                              setCustomAmount("");
+                            }}
+                            className="w-5 h-5"
+                          />
+                          <span className="text-black">Any Amount</span>
+                        </label>
+                        {amount === "custom" && (
+                          <input
+                            id="customAmount"
+                            type="number"
+                            placeholder="Enter amount"
+                            value={customAmount}
+                            onChange={(e) => setCustomAmount(e.target.value)}
+                            className="w-full px-4 py-2 border rounded-lg mt-2"
+                          />
+                        )}
+                      </div>
+                    </>
+                  )}
+
+                  {selectedCategory === "yatra" && (
+                    <>
+                      <h3 className="text-xl font-semibold text-brand-maroon mb-4">
+                        Maha Paada Yatra Donation
+                      </h3>
+                      <div className="space-y-3">
+                        <label className="block text-black mb-2">Any Amount</label>
+                        <input
+                          id="customAmount"
+                          type="number"
+                          placeholder="Enter amount"
+                          value={customAmount}
+                          onChange={(e) => setCustomAmount(e.target.value)}
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                    </>
+                  )}
+
+                  {selectedCategory === "seva" && (
+                    <>
+                      <h3 className="text-xl font-semibold text-brand-maroon mb-4">
+                        Aarjita Seva / Pooja
+                      </h3>
+                      <div className="space-y-3">
+                        <label className="flex items-center space-x-3 cursor-pointer">
+                          <input
+                            type="radio"
+                            name="amt"
+                            value="2000"
+                            checked={amount === "2000"}
+                            onChange={(e) => {
+                              setAmount(e.target.value);
+                              setCustomAmount("");
+                            }}
+                            className="w-5 h-5"
+                          />
+                          <span className="text-black">Sri Chakra Archana – ₹2,000</span>
+                        </label>
+                        <label className="flex items-center space-x-3 cursor-pointer">
+                          <input
+                            type="radio"
+                            name="amt"
+                            value="1000"
+                            checked={amount === "1000"}
+                            onChange={(e) => {
+                              setAmount(e.target.value);
+                              setCustomAmount("");
+                            }}
+                            className="w-5 h-5"
+                          />
+                          <span className="text-black">Rudrabhishekam – ₹1,000</span>
+                        </label>
+                        <label className="flex items-center space-x-3 cursor-pointer">
+                          <input
+                            type="radio"
+                            name="amt"
+                            value="custom"
+                            checked={amount === "custom"}
+                            onChange={(e) => {
+                              setAmount(e.target.value);
+                              setCustomAmount("");
+                            }}
+                            className="w-5 h-5"
+                          />
+                          <span className="text-black">Nitya Pooja – Any Amount</span>
+                        </label>
+                        <label className="flex items-center space-x-3 cursor-pointer">
+                          <input
+                            type="radio"
+                            name="amt"
+                            value="5000"
+                            checked={amount === "5000"}
+                            onChange={(e) => {
+                              setAmount(e.target.value);
+                              setCustomAmount("");
+                            }}
+                            className="w-5 h-5"
+                          />
+                          <span className="text-black">YatiBhiksha – ₹5,000</span>
+                        </label>
+                        <label className="flex items-center space-x-3 cursor-pointer">
+                          <input
+                            type="radio"
+                            name="amt"
+                            value="10000"
+                            checked={amount === "10000"}
+                            onChange={(e) => {
+                              setAmount(e.target.value);
+                              setCustomAmount("");
+                            }}
+                            className="w-5 h-5"
+                          />
+                          <span className="text-black">Chandi Homam – ₹10,000</span>
+                        </label>
+                        {amount === "custom" && (
+                          <input
+                            id="customAmount"
+                            type="number"
+                            placeholder="Enter amount"
+                            value={customAmount}
+                            onChange={(e) => setCustomAmount(e.target.value)}
+                            className="w-full px-4 py-2 border rounded-lg mt-2"
+                          />
+                        )}
+                      </div>
+                    </>
+                  )}
+
+                  <button
+                    onClick={showSection2}
+                    disabled={!getEffectiveAmount()}
+                    className={`mt-6 px-6 py-3 rounded-lg font-semibold transition-colors ${
+                      getEffectiveAmount()
+                        ? "bg-brand-maroon text-brand-gold hover:bg-brand-maroon/90"
+                        : "bg-gray-200 text-gray-500 cursor-not-allowed"
+                    }`}
+                  >
+                    Next
+                  </button>
                 </div>
               )}
+            </div>
+          )}
 
-              <div className="mt-6 border-t pt-6">
-                <p className="text-sm text-black/70 mb-3">After completing the payment, confirm to receive blessing.</p>
+          {/* Section 2: Donor Details */}
+          {section === 2 && (
+            <div className="space-y-6">
+              <h3 className="text-2xl font-semibold text-brand-maroon mb-4">Donor Details</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-black font-semibold mb-2">Full Name *</label>
+                  <input
+                    id="fullname"
+                    type="text"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-lg"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-black font-semibold mb-2">Gothram</label>
+                  <input
+                    id="gothram"
+                    type="text"
+                    value={gothram}
+                    onChange={(e) => setGothram(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label className="block text-black font-semibold mb-2">Mobile *</label>
+                  <input
+                    id="mobile"
+                    type="tel"
+                    value={mobile}
+                    onChange={(e) => setMobile(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-lg"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-black font-semibold mb-2">Email (optional)</label>
+                  <input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-lg"
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label className="block text-black font-semibold mb-2">Address</label>
+                  <input
+                    id="address"
+                    type="text"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label className="block text-black font-semibold mb-2">Preferred Day of Pooja</label>
+                  <input
+                    id="poojaday"
+                    type="text"
+                    value={poojaday}
+                    onChange={(e) => setPoojaday(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label className="block text-black font-semibold mb-2">PAN (for 80G)</label>
+                  <input
+                    id="pan"
+                    type="text"
+                    value={pan}
+                    onChange={(e) => setPan(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-lg"
+                  />
+                </div>
+              </div>
+              <button
+                onClick={goToPayment}
+                disabled={!fullName.trim() || !mobile.trim()}
+                className={`mt-6 px-6 py-3 rounded-lg font-semibold transition-colors ${
+                  fullName.trim() && mobile.trim()
+                    ? "bg-brand-maroon text-brand-gold hover:bg-brand-maroon/90"
+                    : "bg-gray-200 text-gray-500 cursor-not-allowed"
+                }`}
+              >
+                Proceed
+              </button>
+            </div>
+          )}
+
+          {/* Section 3: Payment */}
+          {section === 3 && (
+            <div className="space-y-6">
+              <h3 className="text-2xl font-semibold text-brand-maroon mb-4">
+                Complete Your Donation
+              </h3>
+              <div className="flex flex-col items-center space-y-6">
+                <div className="qrcode">
+                  {(selectedCategory === "temple" || selectedCategory === "seva") ? (
+                    <img
+                      src="/images/donate/qr-upi.svg"
+                      alt="QR Code"
+                      className="w-64 h-64"
+                    />
+                  ) : (
+                    <img
+                      src="/images/donate/qr-upi.svg"
+                      alt="QR Code"
+                      className="w-64 h-64"
+                    />
+                  )}
+                </div>
+                <div id="bankinfo" className="text-center text-black/80">
+                  {(selectedCategory === "temple" || selectedCategory === "seva") ? (
+                    <div>
+                      <p><strong>Bank:</strong> Sri Chidananda Ashram</p>
+                      <p>Indian Bank, Gannavaram Branch</p>
+                      <p><strong>A/c:</strong> 411448093</p>
+                      <p><strong>IFSC:</strong> IDIB000G075</p>
+                    </div>
+                  ) : (
+                    <div>
+                      <p><strong>Bank:</strong> Sri Bhuvaneswari Peetham</p>
+                      <p>ICICI Bank, Gannavaram Branch</p>
+                      <p><strong>A/c:</strong> 412301000387</p>
+                      <p><strong>IFSC:</strong> ICIC0004123</p>
+                    </div>
+                  )}
+                </div>
+                <div className="w-full max-w-md">
+                  <label className="block text-black font-semibold mb-2">Payment Reference *</label>
+                  <input
+                    id="paymentref"
+                    type="text"
+                    value={paymentRef}
+                    onChange={(e) => setPaymentRef(e.target.value)}
+                    placeholder="Enter UPI transaction ID or bank reference"
+                    className="w-full px-4 py-2 border rounded-lg"
+                    required
+                  />
+                </div>
                 <button
-                  disabled={!canProceed}
-                  onClick={handleConfirmPaid}
-                  className={`w-full px-6 py-3 rounded-lg font-semibold transition-colors ${
-                    canProceed
+                  onClick={finishDonation}
+                  disabled={!paymentRef.trim()}
+                  className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+                    paymentRef.trim()
                       ? "bg-brand-maroon text-brand-gold hover:bg-brand-maroon/90"
                       : "bg-gray-200 text-gray-500 cursor-not-allowed"
                   }`}
                 >
-                  I have completed payment
+                  Submit
                 </button>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {paid && (
-          <div className="bg-white rounded-xl shadow-lg p-8 border border-brand-gold/20 text-center">
-            <div className="text-5xl mb-4">🙏</div>
-            <h2 className="text-3xl font-bold text-brand-maroon mb-4">Blessings</h2>
-            <p className="text-lg text-black mb-6">Sri Bhuvaneswari blesses you with prosperity, peace, and divine grace.</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left max-w-2xl mx-auto">
-              <div className="p-4 rounded-lg bg-brand-cream border border-brand-gold/20">
-                <p className="font-semibold text-brand-maroon">Name</p>
-                <p className="text-black">{name}</p>
-              </div>
-              <div className="p-4 rounded-lg bg-brand-cream border border-brand-gold/20">
-                <p className="font-semibold text-brand-maroon">Category</p>
-                <p className="text-black">{selectedCategory?.label}</p>
-              </div>
-              <div className="p-4 rounded-lg bg-brand-cream border border-brand-gold/20">
-                <p className="font-semibold text-brand-maroon">Amount</p>
-                <p className="text-black">₹{effectiveAmount}</p>
-              </div>
-              <div className="p-4 rounded-lg bg-brand-cream border border-brand-gold/20">
-                <p className="font-semibold text-brand-maroon">UPI ID</p>
-                <p className="text-black">{UPI_VPA}</p>
-              </div>
+          {/* Thank You */}
+          {section === 4 && (
+            <div className="text-center space-y-6 py-8">
+              <h2 className="text-4xl font-bold text-brand-maroon">🙏 Thank You 🙏</h2>
+              <p className="text-xl text-black/80">
+                Your seva/donation is received with gratitude.
+              </p>
             </div>
-            <div className="mt-8">
-              <a
-                href={`https://wa.me/?text=${encodeURIComponent(
-                  `Donation: ${selectedCategory?.label}\nName: ${name}\nPhone: ${phone}\nAmount: ₹${effectiveAmount}\nNote: ${upiNote}`
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block px-6 py-3 rounded-lg font-semibold bg-green-600 text-white hover:bg-green-700"
-              >
-                Share details on WhatsApp
-              </a>
-            </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

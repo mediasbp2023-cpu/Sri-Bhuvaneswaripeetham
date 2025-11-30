@@ -31,7 +31,7 @@ export default function Home() {
             {/* Book a Pooja Button */}
             <div className="mt-12">
               <Link 
-                href="/pooja" 
+                href="/arjita-sevas" 
                 className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-[#800000] font-semibold rounded-full hover:from-[#FFA500] hover:to-[#FFD700] transition-all duration-300 transform hover:scale-105 shadow-2xl text-lg"
               >
                 <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -166,7 +166,7 @@ export default function Home() {
         </section>
 
         {/* Quick Links Grid */}
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {[
             {
               title: "Visit Temple",

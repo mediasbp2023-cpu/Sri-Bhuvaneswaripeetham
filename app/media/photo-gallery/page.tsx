@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { BackNav } from '@/components/BackNav';
 
 export default function PhotoGalleryPage() {
@@ -24,9 +25,9 @@ export default function PhotoGalleryPage() {
               </div>
               <h3 className="text-xl font-semibold text-brand-maroon mb-3">Temple Events</h3>
               <p className="text-gray-700 mb-4">Photos from poojas, festivals, and special ceremonies</p>
-              <button className="bg-brand-maroon text-brand-gold px-4 py-2 rounded-lg hover:bg-brand-maroon/90 transition-colors">
+              <Link href="/gallery" className="inline-block bg-brand-maroon text-brand-gold px-4 py-2 rounded-lg hover:bg-brand-maroon/90 transition-colors">
                 View Gallery
-              </button>
+              </Link>
             </div>
             
             <div className="bg-brand-cream rounded-lg p-6 text-center hover:shadow-md transition-shadow">
@@ -35,9 +36,9 @@ export default function PhotoGalleryPage() {
               </div>
               <h3 className="text-xl font-semibold text-brand-maroon mb-3">Spiritual Activities</h3>
               <p className="text-gray-700 mb-4">Moments from meditation sessions and spiritual programs</p>
-              <button className="bg-brand-maroon text-brand-gold px-4 py-2 rounded-lg hover:bg-brand-maroon/90 transition-colors">
+              <Link href="/gallery" className="inline-block bg-brand-maroon text-brand-gold px-4 py-2 rounded-lg hover:bg-brand-maroon/90 transition-colors">
                 View Gallery
-              </button>
+              </Link>
             </div>
             
             <div className="bg-brand-cream rounded-lg p-6 text-center hover:shadow-md transition-shadow">
@@ -46,9 +47,9 @@ export default function PhotoGalleryPage() {
               </div>
               <h3 className="text-xl font-semibold text-brand-maroon mb-3">Festivals</h3>
               <p className="text-gray-700 mb-4">Celebrations and cultural events throughout the year</p>
-              <button className="bg-brand-maroon text-brand-gold px-4 py-2 rounded-lg hover:bg-brand-maroon/90 transition-colors">
+              <Link href="/gallery" className="inline-block bg-brand-maroon text-brand-gold px-4 py-2 rounded-lg hover:bg-brand-maroon/90 transition-colors">
                 View Gallery
-              </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -28,14 +28,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-  <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-black min-h-screen`}>
+  <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-black min-h-screen flex flex-col`}>
         <Navbar />
         <BackNav />
-        <main className="mx-auto max-w-5xl px-4 lg:px-8">
+        <main className="flex-1 mx-auto max-w-5xl px-4 lg:px-8 w-full">
           {children}
         </main>
-  <Footer />
-  <Chatbot />
+        <Footer />
+        <Chatbot />
         {/* Removed Google Translate scripts to enforce English-only site content */}
       </body>
     </html>

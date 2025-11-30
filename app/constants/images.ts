@@ -53,25 +53,40 @@ export const images = {
     ],
     events: [
       {
-        src: '/images/aalayam/1.svg',
-        alt: 'Community gathering',
+        src: '/images/gallery/Rudramandalam.jpg',
+        alt: 'Rudra Mandalam - Sacred Shiva Lingams',
         width: 800,
-        height: 600,
-        caption: 'Community Celebrations'
+        height: 600
       },
       {
-        src: '/images/aalayam/2.svg',
-        alt: 'Cultural program',
+        src: '/images/gallery/Panchamukha Anjaneya Swamy.jpg',
+        alt: 'Panchamukha Anjaneya Swamy',
         width: 800,
-        height: 600,
-        caption: 'Cultural Programs'
+        height: 600
       },
       {
-        src: '/images/aalayam/3.svg',
-        alt: 'Meditation session',
+        src: '/images/gallery/Ashrama Dwaram.jpg',
+        alt: 'Ashrama Dwaram - Temple Entrance',
         width: 800,
-        height: 600,
-        caption: 'Group Meditation'
+        height: 600
+      },
+      {
+        src: '/images/aalayam/aalayam-1.png',
+        alt: 'Temple view',
+        width: 800,
+        height: 600
+      },
+      {
+        src: '/images/aalayam/aalayam-2.png',
+        alt: 'Temple interior',
+        width: 800,
+        height: 600
+      },
+      {
+        src: '/images/aalayam/aalayam-3.png',
+        alt: 'Sacred space',
+        width: 800,
+        height: 600
       }
     ],
     pilgrimage: [

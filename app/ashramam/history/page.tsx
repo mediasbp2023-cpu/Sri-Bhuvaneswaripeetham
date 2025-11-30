@@ -21,6 +21,13 @@ export default function AshramamHistoryPage() {
             transition={{ duration: 0.6 }} 
             className="bg-gradient-to-br from-[#FFFFF0] to-[#FFF8DC] rounded-3xl p-8 shadow-2xl border-4 border-[#FFD700]/20"
           >
+            <div className="mb-8 rounded-2xl overflow-hidden shadow-lg">
+              <img 
+                src="/images/ashramam/ashramam-history.png" 
+                alt="శ్రీ చిదానంద ఆశ్రమం" 
+                className="w-full h-auto object-cover"
+              />
+            </div>
             <div className="prose max-w-none text-[#800000]">
               <p className="text-lg leading-relaxed mb-6">
                 అత్యంత తపోనిష్ఠా గరిష్ఠులైన శ్రీ చిదానంద సరస్వతీ స్వామివారు ఈ యాశ్రమమును 1952న స్థాపించిరి. ఇందు శ్రీ శృంగేరీ పీఠాధిపతులచే పంపబడిన శ్రీ శంకరాచార్యులవారి పాల రాతి విగ్రహము ప్రతిష్టింపబడినది. మారుచున్న జన జీవన విధానమును తలపోసియోయన్నట్లు చిరునగవు చిందులాడు ఈ సుందరమూర్తి నాటి నుండి పూజల నందుకొనుచున్నది.

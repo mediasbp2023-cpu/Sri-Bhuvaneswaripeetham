@@ -1,82 +1,75 @@
 "use client";
 
-import { useMemo, useState } from 'react';
-import { BackNav } from '@/components/BackNav';
-
-type Slot = {
-  id: string;
-  label: string;
-};
-
-const MORNING_SLOTS: Slot[] = [
-  { id: '06:00', label: '06:00 AM' },
-  { id: '07:00', label: '07:00 AM' },
-  { id: '08:00', label: '08:00 AM' },
-  { id: '09:00', label: '09:00 AM' },
-];
-
-const EVENING_SLOTS: Slot[] = [
-  { id: '18:30', label: '06:30 PM' },
-  { id: '19:00', label: '07:00 PM' },
-  { id: '19:30', label: '07:30 PM' },
-];
+import { useState } from "react";
+import { HeroBanner } from "@/components";
 
 export default function ArjitaSevasPage() {
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [date, setDate] = useState('');
-  const [session, setSession] = useState<'morning' | 'evening' | ''>('');
-  const [slot, setSlot] = useState<Slot | null>(null);
-  const [tickets, setTickets] = useState(1);
-  const [notes, setNotes] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+  const [section, setSection] = useState<1 | 2 | 3 | 4>(1);
+  const [amount, setAmount] = useState<string>("");
+  const [customAmount, setCustomAmount] = useState<string>("");
+  const [fullName, setFullName] = useState("");
+  const [gothram, setGothram] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [address, setAddress] = useState("");
+  const [email, setEmail] = useState("");
+  const [poojaday, setPoojaday] = useState("");
+  const [pan, setPan] = useState("");
+  const [paymentRef, setPaymentRef] = useState("");
 
-  const availableSlots = useMemo(() => {
-    if (session === 'morning') return MORNING_SLOTS;
-    if (session === 'evening') return EVENING_SLOTS;
-    return [];
-  }, [session]);
+  const showSection2 = () => {
+    setSection(2);
+  };
 
-  const canSubmit = useMemo(() => {
-    return (
-      name.trim().length > 0 &&
-      phone.trim().length > 0 &&
-      date.trim().length > 0 &&
-      session !== '' &&
-      slot !== null &&
-      tickets > 0
-    );
-  }, [name, phone, date, session, slot, tickets]);
+  const goToPayment = () => {
+    if (!fullName.trim() || !mobile.trim()) return;
+    setSection(3);
+  };
 
-  const handleSubmit = () => {
-    if (!canSubmit) return;
+  const finishDonation = async () => {
+    if (!paymentRef.trim()) return;
+    
     const payload = {
-      type: 'Arjita Seva',
-      name,
-      phone,
+      category: "Aarjita Seva / Pooja",
+      name: fullName,
+      gothram,
+      phone: mobile,
+      address,
       email,
-      date,
-      session,
-      slot: slot?.id,
-      tickets,
-      notes,
+      poojaday,
+      pan,
+      amount: customAmount || amount,
+      paymentRef,
       time: new Date().toISOString(),
     };
+
     try {
-      const key = 'bp_seva_bookings';
-      const logs = JSON.parse(localStorage.getItem(key) || '[]');
+      const logs = JSON.parse(localStorage.getItem("bp_donations") || "[]");
       logs.push(payload);
-      localStorage.setItem(key, JSON.stringify(logs));
+      localStorage.setItem("bp_donations", JSON.stringify(logs));
+      await fetch("/api/donations/collect", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }).catch(() => {});
     } catch {}
-    setSubmitted(true);
+
+    setSection(4);
+  };
+
+  const getEffectiveAmount = () => {
+    if (customAmount) return customAmount;
+    return amount;
   };
 
   return (
-    <main className="bg-gradient-to-br from-brand-cream via-white to-brand-gold/10 min-h-screen">
-      <div className="max-w-6xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <BackNav />
+    <div className="min-h-screen bg-gradient-to-br from-brand-cream via-white to-brand-gold/10">
+      <HeroBanner
+        title="Aarjita Sevas"
+        description="Book your seva and pooja"
+        height="medium"
+      />
 
+      <div className="max-w-6xl mx-auto px-4 py-12">
         {/* Seva Information Section */}
         <div className="bg-white shadow-lg rounded-xl overflow-hidden border border-brand-gold/20 mb-8">
           <div className="p-8">
@@ -106,181 +99,266 @@ export default function ArjitaSevasPage() {
           </div>
         </div>
 
-        {!submitted && (
-          <div className="bg-white shadow-lg rounded-xl overflow-hidden border border-brand-gold/20">
-            <div className="p-8">
-              <h2 className="text-3xl font-bold text-brand-maroon mb-2">Book Your Seva</h2>
-              <p className="text-sm text-black/70 mb-6">Select date, time slot, and number of tickets</p>
+        <div className="bg-white rounded-xl shadow-lg p-8 border border-brand-gold/20">
+          <h2 className="text-3xl font-bold text-brand-maroon mb-6 text-center">
+            🙏 Aarjita Seva / Pooja 🙏
+          </h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <input
-                  className="border rounded-lg px-4 py-3"
-                  placeholder="Full Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-                <input
-                  className="border rounded-lg px-4 py-3"
-                  placeholder="Mobile Number"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-                <input
-                  className="border rounded-lg px-4 py-3 md:col-span-2"
-                  placeholder="Email (optional)"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-
-                <div className="flex flex-col gap-2">
-                  <label className="text-sm font-semibold text-brand-maroon">Select Date</label>
-                  <input
-                    type="date"
-                    className="border rounded-lg px-4 py-3"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                  />
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label className="text-sm font-semibold text-brand-maroon">Session</label>
-                  <div className="flex gap-3">
-                    <button
-                      onClick={() => {
-                        setSession('morning');
-                        setSlot(null);
+          {/* Section 1: Pooja Selection */}
+          {section === 1 && (
+            <div className="space-y-6">
+              <div className="mt-8 bg-brand-cream/50 rounded-lg p-6 border border-brand-gold/20">
+                <h3 className="text-xl font-semibold text-brand-maroon mb-4">
+                  Aarjita Seva / Pooja
+                </h3>
+                <div className="space-y-3">
+                  <label className="flex items-center space-x-3 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="amt"
+                      value="2000"
+                      checked={amount === "2000"}
+                      onChange={(e) => {
+                        setAmount(e.target.value);
+                        setCustomAmount("");
                       }}
-                      className={`px-4 py-2 rounded-full border text-sm font-semibold transition-colors ${
-                        session === 'morning'
-                          ? 'bg-brand-maroon text-brand-gold border-brand-maroon'
-                          : 'bg-brand-cream text-brand-maroon border-brand-gold/30 hover:bg-brand-gold/10'
-                      }`}
-                    >
-                      Morning
-                    </button>
-                    <button
-                      onClick={() => {
-                        setSession('evening');
-                        setSlot(null);
+                      className="w-5 h-5"
+                    />
+                    <span className="text-black">Sri Chakra Archana – ₹2,000</span>
+                  </label>
+                  <label className="flex items-center space-x-3 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="amt"
+                      value="1000"
+                      checked={amount === "1000"}
+                      onChange={(e) => {
+                        setAmount(e.target.value);
+                        setCustomAmount("");
                       }}
-                      className={`px-4 py-2 rounded-full border text-sm font-semibold transition-colors ${
-                        session === 'evening'
-                          ? 'bg-brand-maroon text-brand-gold border-brand-maroon'
-                          : 'bg-brand-cream text-brand-maroon border-brand-gold/30 hover:bg-brand-gold/10'
-                      }`}
-                    >
-                      Evening
-                    </button>
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-2 md:col-span-2">
-                  <label className="text-sm font-semibold text-brand-maroon">Time Slot</label>
-                  <div className="flex flex-wrap gap-3">
-                    {availableSlots.map((s) => (
-                      <button
-                        key={s.id}
-                        onClick={() => setSlot(s)}
-                        className={`px-4 py-2 rounded-full border text-sm font-semibold transition-colors ${
-                          slot?.id === s.id
-                            ? 'bg-brand-maroon text-brand-gold border-brand-maroon'
-                            : 'bg-brand-cream text-brand-maroon border-brand-gold/30 hover:bg-brand-gold/10'
-                        }`}
-                      >
-                        {s.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <label className="text-sm font-semibold text-brand-maroon">Tickets</label>
+                      className="w-5 h-5"
+                    />
+                    <span className="text-black">Rudrabhishekam – ₹1,000</span>
+                  </label>
+                  <label className="flex items-center space-x-3 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="amt"
+                      value="custom"
+                      checked={amount === "custom"}
+                      onChange={(e) => {
+                        setAmount(e.target.value);
+                        setCustomAmount("");
+                      }}
+                      className="w-5 h-5"
+                    />
+                    <span className="text-black">Nitya Pooja – Any Amount</span>
+                  </label>
+                  <label className="flex items-center space-x-3 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="amt"
+                      value="5000"
+                      checked={amount === "5000"}
+                      onChange={(e) => {
+                        setAmount(e.target.value);
+                        setCustomAmount("");
+                      }}
+                      className="w-5 h-5"
+                    />
+                    <span className="text-black">YatiBhiksha – ₹5,000</span>
+                  </label>
+                  <label className="flex items-center space-x-3 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="amt"
+                      value="10000"
+                      checked={amount === "10000"}
+                      onChange={(e) => {
+                        setAmount(e.target.value);
+                        setCustomAmount("");
+                      }}
+                      className="w-5 h-5"
+                    />
+                    <span className="text-black">Chandi Homam – ₹10,000</span>
+                  </label>
                   <input
+                    id="customAmount"
                     type="number"
-                    min={1}
-                    className="border rounded-lg px-4 py-3 w-32"
-                    value={tickets}
-                    onChange={(e) => setTickets(Math.max(1, parseInt(e.target.value || '1', 10)))}
+                    placeholder="Enter amount"
+                    value={customAmount}
+                    onChange={(e) => setCustomAmount(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-lg mt-2"
                   />
                 </div>
 
-                <textarea
-                  className="border rounded-lg px-4 py-3 md:col-span-2"
-                  placeholder="Notes (optional)"
-                  value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
-                />
-              </div>
-
-              <div className="mt-8 flex flex-wrap gap-3">
                 <button
-                  disabled={!canSubmit}
-                  onClick={handleSubmit}
-                  className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
-                    canSubmit
-                      ? 'bg-brand-maroon text-brand-gold hover:bg-brand-maroon/90'
-                      : 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                  onClick={showSection2}
+                  disabled={!getEffectiveAmount()}
+                  className={`mt-6 px-6 py-3 rounded-lg font-semibold transition-colors ${
+                    getEffectiveAmount()
+                      ? "bg-brand-maroon text-brand-gold hover:bg-brand-maroon/90"
+                      : "bg-gray-200 text-gray-500 cursor-not-allowed"
                   }`}
                 >
-                  Book Seva
+                  Next
                 </button>
-                <a
-                  href="/donate"
-                  className="px-6 py-3 rounded-lg font-semibold border bg-white text-brand-maroon border-brand-gold/40 hover:bg-brand-gold/10"
-                >
-                  Donate
-                </a>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {submitted && (
-          <div className="bg-white rounded-xl shadow-lg p-8 border border-brand-gold/20 text-center">
-            <div className="text-5xl mb-4">🙏</div>
-            <h2 className="text-3xl font-bold text-brand-maroon mb-4">Booking Confirmed</h2>
-            <p className="text-lg text-black mb-6">Your Arjita Seva booking is recorded.</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left max-w-2xl mx-auto">
-              <div className="p-4 rounded-lg bg-brand-cream border border-brand-gold/20">
-                <p className="font-semibold text-brand-maroon">Name</p>
-                <p className="text-black">{name}</p>
+          {/* Section 2: Donor Details */}
+          {section === 2 && (
+            <div className="space-y-6">
+              <h3 className="text-2xl font-semibold text-brand-maroon mb-4">Donor Details</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-black font-semibold mb-2">Full Name *</label>
+                  <input
+                    id="fullname"
+                    type="text"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-lg"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-black font-semibold mb-2">Gothram</label>
+                  <input
+                    id="gothram"
+                    type="text"
+                    value={gothram}
+                    onChange={(e) => setGothram(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label className="block text-black font-semibold mb-2">Mobile *</label>
+                  <input
+                    id="mobile"
+                    type="tel"
+                    value={mobile}
+                    onChange={(e) => setMobile(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-lg"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-black font-semibold mb-2">Email (optional)</label>
+                  <input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-lg"
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label className="block text-black font-semibold mb-2">Address</label>
+                  <input
+                    id="address"
+                    type="text"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label className="block text-black font-semibold mb-2">Preferred Day of Pooja</label>
+                  <input
+                    id="poojaday"
+                    type="text"
+                    value={poojaday}
+                    onChange={(e) => setPoojaday(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label className="block text-black font-semibold mb-2">PAN (for 80G)</label>
+                  <input
+                    id="pan"
+                    type="text"
+                    value={pan}
+                    onChange={(e) => setPan(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-lg"
+                  />
+                </div>
               </div>
-              <div className="p-4 rounded-lg bg-brand-cream border border-brand-gold/20">
-                <p className="font-semibold text-brand-maroon">Date</p>
-                <p className="text-black">{date}</p>
-              </div>
-              <div className="p-4 rounded-lg bg-brand-cream border border-brand-gold/20">
-                <p className="font-semibold text-brand-maroon">Session</p>
-                <p className="text-black">{session}</p>
-              </div>
-              <div className="p-4 rounded-lg bg-brand-cream border border-brand-gold/20">
-                <p className="font-semibold text-brand-maroon">Time Slot</p>
-                <p className="text-black">{slot?.label}</p>
-              </div>
-              <div className="p-4 rounded-lg bg-brand-cream border border-brand-gold/20">
-                <p className="font-semibold text-brand-maroon">Tickets</p>
-                <p className="text-black">{tickets}</p>
-              </div>
-              <div className="p-4 rounded-lg bg-brand-cream border border-brand-gold/20 md:col-span-2">
-                <p className="font-semibold text-brand-maroon">Contact</p>
-                <p className="text-black">{phone} {email ? `• ${email}` : ''}</p>
-              </div>
-            </div>
-            <div className="mt-8">
-              <a
-                href={`https://wa.me/?text=${encodeURIComponent(
-                  `Seva Booking\nName: ${name}\nPhone: ${phone}\nDate: ${date}\nSession: ${session}\nSlot: ${slot?.label}\nTickets: ${tickets}`
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block px-6 py-3 rounded-lg font-semibold bg-green-600 text-white hover:bg-green-700"
+              <button
+                onClick={goToPayment}
+                disabled={!fullName.trim() || !mobile.trim()}
+                className={`mt-6 px-6 py-3 rounded-lg font-semibold transition-colors ${
+                  fullName.trim() && mobile.trim()
+                    ? "bg-brand-maroon text-brand-gold hover:bg-brand-maroon/90"
+                    : "bg-gray-200 text-gray-500 cursor-not-allowed"
+                }`}
               >
-                Share on WhatsApp
-              </a>
+                Proceed
+              </button>
             </div>
-          </div>
-        )}
+          )}
+
+          {/* Section 3: Payment */}
+          {section === 3 && (
+            <div className="space-y-6">
+              <h3 className="text-2xl font-semibold text-brand-maroon mb-4">
+                Complete Your Donation
+              </h3>
+              <div className="flex flex-col items-center space-y-6">
+                <div className="qrcode">
+                  <img
+                    src="/images/donate/qr-upi.svg"
+                    alt="QR Code"
+                    className="w-64 h-64"
+                  />
+                </div>
+                <div id="bankinfo" className="text-center text-black/80">
+                  <div>
+                    <p><strong>Bank:</strong> Sri Chidananda Ashram</p>
+                    <p>Indian Bank, Gannavaram Branch</p>
+                    <p><strong>A/c:</strong> 411448093</p>
+                    <p><strong>IFSC:</strong> IDIB000G075</p>
+                  </div>
+                </div>
+                <div className="w-full max-w-md">
+                  <label className="block text-black font-semibold mb-2">Payment Reference *</label>
+                  <input
+                    id="paymentref"
+                    type="text"
+                    value={paymentRef}
+                    onChange={(e) => setPaymentRef(e.target.value)}
+                    placeholder="Enter UPI transaction ID or bank reference"
+                    className="w-full px-4 py-2 border rounded-lg"
+                    required
+                  />
+                </div>
+                <button
+                  onClick={finishDonation}
+                  disabled={!paymentRef.trim()}
+                  className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+                    paymentRef.trim()
+                      ? "bg-brand-maroon text-brand-gold hover:bg-brand-maroon/90"
+                      : "bg-gray-200 text-gray-500 cursor-not-allowed"
+                  }`}
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Thank You */}
+          {section === 4 && (
+            <div className="text-center space-y-6 py-8">
+              <h2 className="text-4xl font-bold text-brand-maroon">🙏 Thank You 🙏</h2>
+              <p className="text-xl text-black/80">
+                Your seva/donation is received with gratitude.
+              </p>
+            </div>
+          )}
+        </div>
       </div>
-    </main>
+    </div>
   );
 }
