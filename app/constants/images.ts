@@ -56,37 +56,43 @@ export const images = {
         src: '/images/gallery/Rudramandalam.jpg',
         alt: 'Rudra Mandalam - Sacred Shiva Lingams',
         width: 800,
-        height: 600
+        height: 600,
+        caption: 'Rudra Mandalam'
       },
       {
         src: '/images/gallery/Panchamukha Anjaneya Swamy.jpg',
         alt: 'Panchamukha Anjaneya Swamy',
         width: 800,
-        height: 600
+        height: 600,
+        caption: 'Panchamukha Anjaneya Swamy'
       },
       {
         src: '/images/gallery/Ashrama Dwaram.jpg',
         alt: 'Ashrama Dwaram - Temple Entrance',
         width: 800,
-        height: 600
+        height: 600,
+        caption: 'Ashrama Dwaram - Temple Entrance'
       },
       {
         src: '/images/aalayam/aalayam-1.png',
         alt: 'Temple view',
         width: 800,
-        height: 600
+        height: 600,
+        caption: 'Temple View'
       },
       {
         src: '/images/aalayam/aalayam-2.png',
         alt: 'Temple interior',
         width: 800,
-        height: 600
+        height: 600,
+        caption: 'Temple Interior'
       },
       {
         src: '/images/aalayam/aalayam-3.png',
         alt: 'Sacred space',
         width: 800,
-        height: 600
+        height: 600,
+        caption: 'Sacred Space'
       }
     ],
     pilgrimage: [
