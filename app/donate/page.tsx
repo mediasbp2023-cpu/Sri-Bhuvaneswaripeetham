@@ -430,20 +430,24 @@ export default function DonatePage() {
                 Complete Your Donation
               </h3>
               <div className="flex flex-col items-center space-y-6">
-                <div className="qrcode">
+                <div className="qrcode text-center">
                   {(selectedCategory === "temple" || selectedCategory === "seva") ? (
                     <img
-                      src="/images/donate/qr-upi.svg"
-                      alt="QR Code"
-                      className="w-64 h-64"
+                      src="/images/donate/image.png"
+                      alt="UPI QR"
+                      className="w-64 h-64 rounded-lg border"
                     />
                   ) : (
                     <img
-                      src="/images/donate/qr-upi.svg"
+                      src="/images/donate/image.png"
                       alt="QR Code"
-                      className="w-64 h-64"
+                      className="w-64 h-64 rounded-lg border"
                     />
                   )}
+                  <div className="mt-3 text-sm text-black/80">
+                    <div><strong>Name:</strong> SRI CHIDANANDA ASHRAM</div>
+                    <div><strong>Pay Directly to:</strong> srichida@indianbk</div>
+                  </div>
                 </div>
                 <div id="bankinfo" className="text-center text-black/80">
                   {(selectedCategory === "temple" || selectedCategory === "seva") ? (
@@ -493,9 +497,9 @@ export default function DonatePage() {
           {section === 4 && (
             <div className="text-center space-y-6 py-8">
               <h2 className="text-4xl font-bold text-brand-maroon">🙏 Thank You 🙏</h2>
-              <p className="text-xl text-black/80">
-                Your seva/donation is received with gratitude.
-              </p>
+              <p className="text-xl text-black/80">Your seva/donation is received with gratitude.</p>
+              <p className="text-lg text-brand-maroon">Sri Bhuvaneswari Mata bless you and your family.</p>
+              <p className="text-lg text-brand-maroon">శ్రీ భువనేశ్వరి మాత ఆశీస్సులు మీకు, మీ కుటుంబానికి ఉండాలి.</p>
             </div>
           )}
         </div>
