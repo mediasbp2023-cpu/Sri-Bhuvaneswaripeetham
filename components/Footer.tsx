@@ -65,7 +65,7 @@ export function Footer({ className = '' }: FooterProps) {
                 <Youtube className="h-6 w-6 hover:text-orange-600 transition-colors" />
               </a>
             </div>
-            <div className="inline-block bg-white rounded-lg border border-[#FFD700]/30 p-4 shadow-sm">
+            <div className="inline-block bg-white rounded-lg border border-[#FFD700]/30 p-2 shadow-sm">
               <div className="text-xs font-semibold text-[#800000] mb-1">Select Language</div>
               <div id="google_translate_element" className="min-w-[150px]"></div>
             </div>
