@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Ramabhadra } from "next/font/google";
 import { Navbar } from "@/components/Navbar";
-import { BackNav } from "@/components/BackNav";
 import { Footer } from "@/components/Footer";
 import Chatbot from "@/components/TempleChatbot";
 import "./globals.css";
@@ -16,9 +15,15 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const ramabhadra = Ramabhadra({
+  variable: "--font-ramabhadra",
+  subsets: ["latin", "telugu"],
+  weight: "400",
+});
+
 export const metadata: Metadata = {
-  title: "Bhuvaneshwari Peetham",
-  description: "Official website of Bhuvaneshwari Peetham",
+  title: "Bhuvaneswaripeetham",
+  description: "Official website of Bhuvaneswaripeetham",
 };
 
 export default function RootLayout({
@@ -28,9 +33,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-  <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-black min-h-screen flex flex-col`}>
+  <body className={`${geistSans.variable} ${geistMono.variable} ${ramabhadra.variable} antialiased bg-white text-black min-h-screen flex flex-col`} style={{ fontFamily: 'var(--font-ramabhadra), system-ui, sans-serif' }}>
         <Navbar />
-        <BackNav />
         <main className="flex-1 mx-auto max-w-5xl px-4 lg:px-8 w-full">
           {children}
         </main>

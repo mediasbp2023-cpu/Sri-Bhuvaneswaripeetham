@@ -102,7 +102,10 @@ const getGuruContent = (guruId: string) => {
 };
 
 export default function GuruParamparaPage() {
-  const gurus = useMemo(() => Object.values(guruData), []);
+  const gurus = useMemo(() => [
+    guruData.skbs,
+    ...Object.values(guruData).filter((g) => g.id !== 'skbs')
+  ], []);
   
   // Get guru ID from URL hash or default to SKBS
   const getGuruIdFromHash = () => {
@@ -170,92 +173,62 @@ export default function GuruParamparaPage() {
           height="medium"
         />
 
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-8 sm:py-12 md:py-16">
-          {/* Constant Guru Grid at Top */}
-          <section aria-label="Guru list" className="mb-8 sm:mb-12 md:mb-16">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 max-w-5xl mx-auto">
-              {gurus.map((guru) => {
-                const lotusType = guruLotusMap[guru.id] || 'left';
-                const isSelected = selectedGuru === guru.id;
-                const imagePath = guruImageMap[guru.id];
-                
-                return (
-                  <button
-                    key={guru.id}
-                    onClick={() => {
-                      setSelectedGuru(guru.id);
-                      // Update URL hash without scrolling
-                      window.history.replaceState(null, '', `#${guru.id}`);
-                      // Scroll to content after a short delay
-                      setTimeout(() => {
-                        const contentElement = document.getElementById('guru-content');
-                        if (contentElement) {
-                          contentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }
-                      }, 100);
-                    }}
-                    className={`group flex flex-col items-center text-center transition-all ${
-                      isSelected ? 'scale-110' : 'hover:scale-105'
-                    }`}
-                  >
-                    {/* Circle with Guru Image */}
-                    <div className={`w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-36 lg:w-36 lg:h-36 rounded-full overflow-hidden transition-all border-2 border-[#800000] ${
-                      isSelected 
-                        ? 'ring-2 sm:ring-4 ring-brand-gold shadow-xl sm:shadow-2xl' 
-                        : 'ring-1 sm:ring-2 ring-brand-gold/30 group-hover:ring-brand-gold'
-                    } shadow-md sm:shadow-lg bg-white relative`}>
-                      {imagePath ? (
-                        <div className="w-full h-full relative">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6">
+          <div className="flex gap-6">
+            <aside aria-label="Guru list" className="w-64 shrink-0">
+              <div className="flex flex-col gap-3">
+                {gurus.map((guru) => {
+                  const lotusType = guruLotusMap[guru.id] || 'left';
+                  const isSelected = selectedGuru === guru.id;
+                  const imagePath = guruImageMap[guru.id];
+
+                  return (
+                    <button
+                      key={guru.id}
+                      onClick={() => {
+                        setSelectedGuru(guru.id);
+                        window.history.replaceState(null, '', `#${guru.id}`);
+                      }}
+                      className={`group flex items-center gap-3 rounded-md px-2 py-2 border ${
+                        isSelected ? 'border-brand-gold bg-white' : 'border-transparent hover:border-brand-gold/50'
+                      }`}
+                    >
+                      <div className={`w-12 h-12 rounded-full overflow-hidden border-2 border-[#800000] ${
+                        isSelected ? 'ring-2 ring-brand-gold' : 'ring-1 ring-brand-gold/30'
+                      } bg-white relative`}>
+                        {imagePath ? (
                           <Image
                             src={imagePath}
                             alt={guru.name}
-                            width={144}
-                            height={144}
+                            width={48}
+                            height={48}
                             className="w-full h-full object-cover"
-                            style={{ 
-                              objectPosition: 'center 30%',
-                              transform: isSelected ? 'scale(1.05)' : 'scale(1)',
-                              transition: 'transform 0.3s ease'
-                            }}
+                            style={{ objectPosition: 'center 30%' }}
                             unoptimized
                           />
-                        </div>
-                      ) : (
-                        <div className={`w-full h-full bg-gradient-to-br ${
-                          lotusType === 'left' 
-                            ? 'from-orange-500 to-orange-600' 
-                            : 'from-orange-500 to-orange-600'
-                        } flex items-center justify-center`}>
-                          <span className="text-white text-xs font-bold">
-                            {lotusType === 'left' ? 'Left Lotus' : 'Right Lotus'}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    
-                    {/* Name Only */}
-                    <div className="mt-3">
-                      <div className={`text-xs sm:text-sm md:text-base font-semibold ${
-                        isSelected ? 'text-brand-gold' : 'text-brand-maroon'
-                      } text-center leading-tight px-1`}>
-                        {guru.fullName || guru.name}
+                        ) : (
+                          <div className={`w-full h-full bg-gradient-to-br ${
+                            lotusType === 'left' ? 'from-orange-500 to-orange-600' : 'from-orange-500 to-orange-600'
+                          }`}></div>
+                        )}
                       </div>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </section>
+                      <div className={`text-sm font-semibold ${
+                        isSelected ? 'text-brand-gold' : 'text-brand-maroon'
+                      }`}>{guru.fullName || guru.name}</div>
+                    </button>
+                  );
+                })}
+              </div>
+            </aside>
 
-          {/* Dynamic Content Below - Changes based on selected guru */}
-          <motion.div
-            id="guru-content"
-            key={selectedGuru}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="bg-gradient-to-br from-[#FFFFF0] via-[#FFF8DC] to-[#F5E6D3] rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-6 md:p-8 shadow-xl sm:shadow-2xl border-2 sm:border-4 border-[#FFD700]/20"
-          >
+            <motion.div
+              id="guru-content"
+              key={selectedGuru}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="flex-1 bg-gradient-to-br from-[#FFFFF0] via-[#FFF8DC] to-[#F5E6D3] rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-6 md:p-8 shadow-xl sm:shadow-2xl border-2 sm:border-4 border-[#FFD700]/20"
+            >
 
             <div className="relative z-5 pt-4 sm:pt-6 md:pt-8">
               {/* Guru Image and Title Section */}
@@ -301,8 +274,7 @@ export default function GuruParamparaPage() {
                 </div>
               </div>
 
-              {/* Teachings */}
-              {selectedGuruData.teachings && selectedGuruData.teachings.length > 0 && (
+              {/* {selectedGuruData.teachings && selectedGuruData.teachings.length > 0 && (
                 <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
                   <div className="text-center">
                     <h4 className="text-lg sm:text-xl font-bold text-[#8B0000] mb-3 sm:mb-4 font-serif">Key Teachings</h4>
@@ -319,17 +291,17 @@ export default function GuruParamparaPage() {
                     ))}
                   </div>
                 </div>
-              )}
+              )} */}
 
-              {/* Legacy */}
-              <div>
+              {/* <div>
                 <h4 className="text-lg sm:text-xl font-bold text-[#8B0000] mb-2 sm:mb-3 font-serif text-center">Legacy</h4>
                 <p className="text-[#800000]/80 text-sm sm:text-base leading-relaxed text-center max-w-4xl mx-auto px-2">
                   {selectedGuruData.legacy}
                 </p>
-              </div>
+              </div> */}
             </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </div>

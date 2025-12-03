@@ -38,30 +38,11 @@ export default function ContactPage() {
           </div>
         </div>
       </div>
-
       <div className="max-w-4xl mx-auto px-6 pb-12">
         <div className="bg-white rounded-2xl shadow-lg p-8 border border-brand-gold/20">
-          <h2 className="text-2xl font-bold text-brand-maroon mb-4">గూగుల్ మ్యాప్ లో స్థానము / Location on Google Map</h2>
-          <div className="relative w-full overflow-hidden rounded-xl border border-brand-gold/30 bg-brand-cream">
-            <div className="pt-[56.25%]" />
-            <iframe
-              title="Sri Chidananda Ashramam Location"
-              src="https://www.google.com/maps?q=Sri%20Chidananda%20Ashramam%2C%20E.No%3A%2010-141%2F1%2C%20Kesaripalli%20Village%2C%20Gannavaram%20%28M%29%2C%20Krishna%20District%20-%20521%20102%2C%20Andhra%20Pradesh&output=embed"
-              className="absolute inset-0 w-full h-full"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
-            />
-          </div>
-          <div className="mt-4 text-right">
-            <a
-              href="https://www.google.com/maps/search/?api=1&query=Sri%20Chidananda%20Ashramam%2C%20E.No%3A%2010-141%2F1%2C%20Kesaripalli%20Village%2C%20Gannavaram%20%28M%29%2C%20Krishna%20District%20-%20521%20102%2C%20Andhra%20Pradesh"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-4 py-2 rounded-full border border-brand-orange text-brand-orange hover:bg-brand-cream"
-            >
-              Open in Google Maps
-            </a>
+          <h2 className="text-2xl font-bold text-brand-maroon mb-4">Social</h2>
+          <div className="flex items-center gap-3">
+            <a href="https://www.facebook.com/hinduaalayam/?ref=embed_page#" target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-4 py-2 rounded-full border border-brand-orange text-brand-orange hover:bg-brand-cream">Facebook Page</a>
           </div>
         </div>
       </div>

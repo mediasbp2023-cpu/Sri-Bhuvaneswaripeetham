@@ -58,7 +58,7 @@ export function Footer({ className = '' }: FooterProps) {
           <div>
             <h3 className="font-bold text-lg mb-4">Follow Us</h3>
             <div className="flex space-x-4 mb-4">
-              <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.facebook.com/hinduaalayam/?ref=embed_page#" target="_blank" rel="noopener noreferrer">
                 <Facebook className="h-6 w-6 hover:text-orange-600 transition-colors" />
               </a>
               <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">

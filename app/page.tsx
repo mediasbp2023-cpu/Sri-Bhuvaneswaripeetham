@@ -5,11 +5,11 @@ import { images } from "./constants/images";
 export default function Home() {
   return (
     <div className="relative min-h-screen">
-      {/* Background Image with Bhuvaneshwari Peetham */}
+      {/* Background Image with Bhuvaneswaripeetham */}
       <div className="fixed inset-0 z-0">
         <img 
           src="/images/Background 2.png" 
-          alt="Bhuvaneshwari Peetham Background" 
+          alt="Bhuvaneswaripeetham Background" 
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-amber-900/40 via-orange-800/30 to-yellow-900/50"></div>
@@ -17,12 +17,12 @@ export default function Home() {
       
       {/* Content */}
         <div className="relative z-10">
-        {/* Hero Section with Bhuvaneshwari Peetham Title */}
+        {/* Hero Section with Bhuvaneswaripeetham Title */}
         <section className="min-h-screen flex items-center justify-center text-center text-white">
           <div className="max-w-4xl mx-auto px-6">
             {/* Top Action Buttons - Same color as Book a Pooja */}
             <h1 className="text-6xl md:text-8xl font-serif mb-6 text-shadow-lg">
-              Bhuvaneshwari Peetham
+              Bhuvaneswaripeetham
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-white/90 font-light">
               A sanctuary of peace, devotion, and spiritual awakening
@@ -114,7 +114,7 @@ export default function Home() {
               </h2>
               <div className="w-32 h-1 bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] mx-auto mb-6"></div>
               <p className="text-lg text-[#800000]/80 max-w-2xl mx-auto">
-                Experience the divine beauty and sacred architecture of Bhuvaneshwari Peetham through these blessed images
+                Experience the divine beauty and sacred architecture of Bhuvaneswaripeetham through these blessed images
               </p>
             </div>
             
@@ -142,4 +142,3 @@ export default function Home() {
     </div>
   );
 }
-

@@ -1,18 +1,11 @@
 'use client';
 import Image from 'next/image';
-import { HeroBanner } from '@/components';
 import Link from 'next/link';
 
 export default function TempleRenovationPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-brand-cream via-white to-brand-gold/10">
-      <HeroBanner
-        title="నూతన ఆలయం నిర్మాణం"
-        description="New Temple Construction - Preserving our sacred heritage"
-        height="medium"
-      />
-
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-0">
         {/* Image Section */}
         <div className="mb-6 sm:mb-8">
           <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-4 sm:p-6 border border-brand-gold/20 overflow-hidden">
@@ -58,7 +51,7 @@ export default function TempleRenovationPage() {
         <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-6 sm:p-8 border border-brand-gold/20 mb-6 sm:mb-8">
           <h2 className="text-2xl sm:text-3xl font-bold text-brand-maroon mb-6">నూతన సముదాయములో ముఖ్య నిర్మాణాలు</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {/* Sri Bhuvaneshwari Math Temple */}
             <div className="bg-gradient-to-br from-brand-cream to-brand-gold/20 rounded-xl p-4 sm:p-6 border border-brand-gold/30">
               <h3 className="text-xl sm:text-2xl font-bold text-brand-maroon mb-4">శ్రీ భువనేశ్వరి మాత ఆలయము</h3>
@@ -102,10 +95,12 @@ export default function TempleRenovationPage() {
                   <span className="text-brand-maroon mr-2 font-bold">•</span>
                   <span>యాత్రికుల వసతి</span>
                 </li>
-                <li className="flex items-start">
-                  <span className="text-brand-maroon mr-2 font-bold">•</span>
-                  <span>శ్రీ అన్నపూర్ణ నిలయము</span>
-                </li>
+              </ul>
+            </div>
+
+            <div className="bg-gradient-to-br from-brand-cream to-brand-gold/20 rounded-xl p-4 sm:p-6 border border-brand-gold/30">
+              <h3 className="text-xl sm:text-2xl font-bold text-brand-maroon mb-4">శ్రీ అన్నపూర్ణ నిలయము</h3>
+              <ul className="space-y-2 text-sm sm:text-base text-gray-700">
                 <li className="flex items-start">
                   <span className="text-brand-maroon mr-2 font-bold">•</span>
                   <span>షోడశ స్తంభ యాగశాల</span>
