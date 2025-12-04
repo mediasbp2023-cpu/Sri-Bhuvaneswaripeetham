@@ -53,6 +53,24 @@ export default function RootLayout({
           `}
         </Script>
         <Script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" strategy="afterInteractive" />
+        <Script id="google-translate-ensure" strategy="afterInteractive">
+          {`
+            (function(){
+              function ensure(){
+                var el = document.getElementById('google_translate_element');
+                if(!el) return;
+                var hasGadget = el.querySelector('.goog-te-gadget');
+                if(!hasGadget && typeof google !== 'undefined' && google.translate){
+                  googleTranslateElementInit();
+                }
+              }
+              document.addEventListener('visibilitychange', ensure);
+              window.addEventListener('pageshow', ensure);
+              window.addEventListener('popstate', function(){ setTimeout(ensure, 0); });
+              setTimeout(ensure, 500);
+            })();
+          `}
+        </Script>
       </body>
     </html>
   );

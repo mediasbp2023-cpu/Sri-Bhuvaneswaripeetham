@@ -55,6 +55,7 @@ export const navLinks: NavLinks = {
             label: "Mahapadayatra",
             submenu: [
                 { href: "/mahapadayatra", label: "Overview" },
+                { href: "/mahapadayatra/objectives", label: "Objectives" },
                 { href: "/mahapadayatra/timeline", label: "Timeline" },
                 { href: "/mahapadayatra/stories", label: "Stories" },
                 { href: "/mahapadayatra/gallery", label: "Gallery" },
@@ -105,4 +106,3 @@ export const navLinks: NavLinks = {
         },
     ],
 };
-
