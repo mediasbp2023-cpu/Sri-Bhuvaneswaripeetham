@@ -15,20 +15,20 @@ export default function MahapadayatraObjectivesPage() {
       />
       <BackNav />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 md:py-16">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 md:py-16" style={{ fontFamily: 'var(--font-ramabhadra), system-ui, sans-serif' }}>
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
           className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-5 sm:p-6 mb-8 border border-brand-gold/20"
         >
-          <h2 className="text-xl sm:text-2xl font-bold text-brand-maroon mb-4">Objectives Index</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+          <h2 className="text-2xl font-bold text-brand-maroon mb-4">Objectives Index</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-base sm:text-lg md:text-xl leading-relaxed">
             <Link href="#yatra-lakshyam" className="text-brand-orange hover:underline">యాత్ర లక్ష్యం</Link>
-            <Link href="#bharatam-devalayam" className="text-brand-orange hover:underline">భారతదేశమే ఒక దేవాలయం</Link>
-            <Link href="#bhagasvamyam" className="text-brand-orange hover:underline">భాగస్వామ్యం</Link>
+            <Link href="#bharatam-devalayam" className="text-brand-orange hover:underline">భారతదేశమే ఒక దేవాలయం - ప్రతి దేవాలయం ఒక భారతదేశం</Link>
+            <Link href="#bhagasvamyam" className="text-brand-orange hover:underline">యువచైతన్య మహాపాదయాత్రలో మన భాగస్వామ్యం</Link>
             <Link href="#yatra-gramam" className="text-brand-orange hover:underline">యాత్ర మన గ్రామానికి వచ్చినప్పుడు</Link>
-            <Link href="#devalayam-kendramga" className="text-brand-orange hover:underline">దేవాలయం కేంద్రంగా</Link>
+            <Link href="#devalayam-kendramga" className="text-brand-orange hover:underline">దేవాలయం కేంద్రంగా చేయవలసిన కొన్ని సేవా కార్యక్రమాలు</Link>
           </div>
         </motion.div>
 
@@ -123,7 +123,7 @@ export default function MahapadayatraObjectivesPage() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="bg-gradient-to-br from-brand-cream to-brand-gold/20 rounded-xl p-6 border border-brand-gold/30"
         >
-          <h3 className="text-2xl sm:text-3xl font-bold text-brand-maroon mb-4 sm:mb-6">దేవాలయం కేంద్రంగా</h3>
+          <h3 className="text-2xl sm:text-3xl font-bold text-brand-maroon mb-4 sm:mb-6">దేవాలయం కేంద్రంగా చేయవలసిన కొన్ని సేవా కార్యక్రమాలు</h3>
           <p className="text-sm sm:text-base md:text-lg text-gray-800">
             ప్రతి దేవాలయం ఆధ్యాత్మిక ధార్మిక సమాజ సేవా కేంద్రంగా ఆవిష్కృతం కావాలి. దేవాలయం ఆధారంగా గ్రామ, బస్తీ స్థాయి సేవలు — విద్య, ఆరోగ్యం, పర్యావరణ పరిరక్షణ, గోసంపద సంరక్షణ — తో సమాజ చైతన్యం పెరగాలి.
           </p>
@@ -132,4 +132,3 @@ export default function MahapadayatraObjectivesPage() {
     </div>
   );
 }
-
